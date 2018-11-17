@@ -37,6 +37,8 @@
       </v-btn>
       <v-btn flat @click="(dialogSignIn = true)"> Sign in
       </v-btn>
+      <v-btn flat to="/profile"> Profile
+      </v-btn>
     </v-toolbar>
     <v-content>
       <router-view/>
@@ -136,9 +138,9 @@
               <v-toolbar-title>Personality Test</v-toolbar-title>
             </v-toolbar><br>
             <v-card-text>
-            <p>1.Relax, get in a quiet place, and read the entire text before making any markings.</p>
-            <p>2.Before each word on the test below, place a number that best describes you, 5 being most like you and 1 being least like you. Try to be objective.</p>
-            <p>3.Turn the page over for instructions on scoring ONLY after completing the test.</p>
+              <p>1.Relax, get in a quiet place, and read the entire text before making any markings.</p>
+              <p>2.Before each word on the test below, place a number that best describes you, 5 being most like you and 1 being least like you. Try to be objective.</p>
+              <p>3.Turn the page over for instructions on scoring ONLY after completing the test.</p>
             </v-card-text>
             <v-btn color="primary" type="submit" @click="dialogTest=false">Exit</v-btn>
             <v-btn color="primary" type="submit" @click="(dialogTestNext=true) && (dialogTest=false)">Next</v-btn>
@@ -147,18 +149,42 @@
       </v-layout>
     </v-dialog>
 
-     <v-dialog v-model="dialogTestNext" max-width="50%" persistent>
-      <v-layout align-center justify-center>
-        <v-flex>
-          <v-card class="elevation-12">
-            <v-toolbar dark color="primary">
-              <v-toolbar-title>Personality Test</v-toolbar-title>
-            </v-toolbar><br>
-            <v-btn color="primary" @click="dialogTest=false">Exit</v-btn>
-          </v-card>
-        </v-flex>
+     <v-dialog v-model="dialogTestNext">
+      <v-layout>
+        <v-card>
+          <v-card-title primary-title> 
+            Personality Test
+          </v-card-title>
+          <v-layout col>
+            <v-flex>
+              <v-list dense>
+                <v-list-tile>
+                  <v-list-tile-content>OPTIMISTIC</v-list-tile-content>
+                </v-list-tile>
+                <v-divider></v-divider>
+                <v-list-tile>
+                  <v-list-tile-content>VERY QUIET</v-list-tile-content>
+                </v-list-tile>
+                <v-divider></v-divider>
+                <v-list-tile>
+                  <v-list-tile-content>DEEP FEELING</v-list-tile-content>
+                </v-list-tile>
+                <v-divider></v-divider>
+                <v-list-tile>
+                  <v-list-tile-content>EMOTIONAL</v-list-tile-content>
+                </v-list-tile>
+                <v-divider></v-divider>
+              </v-list>
+            </v-flex>
+          </v-layout>
+        </v-card>
       </v-layout>
     </v-dialog>
+
+    
+
+
+
 
     <v-footer :fixed="fixed" app>
       <span>&copy; 2018</span>
@@ -195,6 +221,7 @@ export default {
       dialogTest: false,
       dialogTestNext: false,
       e1: true,
+      number: '',
       rules: {
         required: (value) => !!value || 'Required.',
         email: (value) => {
@@ -233,6 +260,10 @@ export default {
       })
     }
   },
-  name: 'App'
+  name: 'App',
+  created () {
+    this.$store.dispatch('AuthChange')
+    this.$store.dispatch('getUserData')
+  }
 }
 </script>
