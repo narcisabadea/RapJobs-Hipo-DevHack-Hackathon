@@ -3,13 +3,12 @@
     <v-toolbar
       app
       :clipped-left="true"
-      dark color="primary"
+      dark color="light-blue lighten-1"
     >
       <router-link :to="'/'">
         <v-toolbar-title class="white--text">Titlu :)</v-toolbar-title>
       </router-link>
       <v-spacer></v-spacer>
-
       <v-menu offset-y v-show="userIsAuthenticated">
         <v-btn
           flat
@@ -135,46 +134,17 @@
               <v-toolbar-title>Personality Test</v-toolbar-title>
             </v-toolbar><br>
             <v-card-text>
-              <p>1.Relax, get in a quiet place, and read the entire text before making any markings.</p>
-              <p>2.Before each word on the test below, place a number that best describes you, 5 being most like you and 1 being least like you. Try to be objective.</p>
-              <p>3.Turn the page over for instructions on scoring ONLY after completing the test.</p>
+            <v-alert
+              :value="true"
+              type="success"
+            >
+              <h3>Relax, get in a quiet place, and read the entire text before making any markings.</h3>
+            </v-alert>
             </v-card-text>
-            <v-btn color="primary" type="submit" @click="dialogTest=false">Exit</v-btn>
-            <v-btn color="primary" type="submit" @click="(dialogTestNext=true) && (dialogTest=false)">Next</v-btn>
+              <v-btn color="primary" type="submit" @click="dialogTest=false">Exit</v-btn>
+              <v-btn color="primary" to="/Test" type="submit" @click="dialogTest=false">Next</v-btn>
           </v-card>
         </v-flex>
-      </v-layout>
-    </v-dialog>
-
-     <v-dialog v-model="dialogTestNext">
-      <v-layout>
-        <v-card>
-          <v-card-title primary-title>
-            Personality Test
-          </v-card-title>
-          <v-layout col>
-            <v-flex>
-              <v-list dense>
-                <v-list-tile>
-                  <v-list-tile-content>OPTIMISTIC</v-list-tile-content>
-                </v-list-tile>
-                <v-divider></v-divider>
-                <v-list-tile>
-                  <v-list-tile-content>VERY QUIET</v-list-tile-content>
-                </v-list-tile>
-                <v-divider></v-divider>
-                <v-list-tile>
-                  <v-list-tile-content>DEEP FEELING</v-list-tile-content>
-                </v-list-tile>
-                <v-divider></v-divider>
-                <v-list-tile>
-                  <v-list-tile-content>EMOTIONAL</v-list-tile-content>
-                </v-list-tile>
-                <v-divider></v-divider>
-              </v-list>
-            </v-flex>
-          </v-layout>
-        </v-card>
       </v-layout>
     </v-dialog>
 
@@ -185,6 +155,7 @@
 </template>
 
 <script>
+ /* eslint-disable */
 import firebase from '@/firebase'
 export default {
   data () {
@@ -211,7 +182,6 @@ export default {
       dialogSignIn: false,
       dialogSignUp: false,
       dialogTest: false,
-      dialogTestNext: false,
       e1: true,
       number: '',
       rules: {
@@ -273,64 +243,75 @@ export default {
     // ADD EMPLOYER
     // firebase.database().ref('Employer')
     // .push({
-    //   Adress: 'Oracle Tower, corp B, et. 1-4, Calea Floreasca 169A, București',
-    //   Industry: 'Computer Hardware & Software',
+    //   Adress: 'Brasov street no.15, Bucharest',
+    //   Industry: 'Retail',
     //   Jobs: {
-    //     id: 'adwad',
-    //     id1: 'awefawef'
+    //     id: '-LRY73GIBoogXFEebMec'
     //   },
     //   Management: {
     //     1: {
-    //       Name: 'Safra A. Catz',
-    //       JobFunction: 'Chief Executive Officer'
+    //       Name: 'Frans W. H. Muller',
+    //       JobFunction: 'Chairman & CEO'
     //     },
     //     2: {
-    //       Name: 'Jeffrey O. Henley',
-    //       JobFunction: 'Vice Chairman of the Board'
-    //     },
-    //     3: {
-    //       Name: 'Mark Hurd',
-    //       JobFunction: 'Chief Executive Officer'
+    //       Name: 'Ahold Delhaize',
+    //       JobFunction: 'Chief Operating Officer'
     //     }
     //   },
-    //   Description: 'Leading the cloud. From intelligent business applications to infrastructure, we deliver tomorrow’s emerging technologies today, like the world’s first - and only - autonomous database.',
-    //   Name: 'Oracle Romania',
-    //   Values: '"Oracle thrives because of the exceptional talent we have attracted to our team. Our employees are creating the technologies of tomorrow." —Larry Ellison, Executive Chairman and Chief Technology Officer',
-    //   Website: 'https://www.oracle.com/ro/index.html'
+    //   Description: 'AT DELHAIZE AMERICA, DIVERSITY AND INCLUSION IS IMPORTANT TO ALL ASPECTS OF OUR BUSINESS, INCLUDING WORKPLACE, MARKETPLACE, SUPPLIERS AND COMMUNITIES. A DIVERSE WORKFORCE MAKES US A BETTER COMPANY AND IS ESSENTIAL TO OUR CONTINUED GROWTH.',
+    //   Name: 'Food Lion',
+    //   Values: 'At Food Lion, Associates are the most important assets to our organization. We want associates to have meaningful careers full of variety and challenges. Each associate contributes to the overall success of Food Lion, and in return, we strive to provide all associates with a fulfilling work experience and reward performance and commitment.',
+    //   Website: 'https://www.foodlion.com'
     // })
     // ADD JOBS
     // firebase.database().ref('Jobs')
     //   .push({
-    //     Benefits: 'Flexible hours, Prestigious clients, Fruits Snack Days, Unlimited delicious coffee, Pizza days, Company retreats',
-    //     Description: 'We are looking for an ambitious, innovative and flexible student who wants to go the extra mile if necessary and become our colleague on the short or long term.',
-    //     EmployerID: '-LRXXafjoEBkpwaHnC0G',
-    //     Name: 'Front End (Javascript+React) Senior Developer',
+    //     Benefits: 'Flexible hours, Prestigious clients, Company retreats',
+    //     Description: 'We are looking for an ambitious, innovative and flexible person who wants to become our colleague on the short or long term.',
+    //     EmployerID: '-LRY73GIBoogXFEebMec',
+    //     Name: 'Sales Assistant',
     //     Other: '',
-    //     RecruitmentProcess: 'Technical interview',
+    //     RecruitmentProcess: 'Verbal interview',
     //     Requirements: {
-    //       Javascript: 'true',
-    //       React: 'true'
+    //       Sales: 'true',
+    //       CustomerSupport: 'true'
     //     },
-    //     Salary: 1600,
-    //     ScheduleStart: 9,
-    //     Domain: 'IT Software',
+    //     Salary: 700,
+    //     ScheduleStart: 7,
+    //     Domain: 'Retail',
     //     JobType: 'full-time',
-    //     Location: 'Bucharest',
-    //     ScheduleEnd: 17,
-    //     Tag: 'Web Development',
+    //     Location: 'Cluj Napoca',
+    //     ScheduleEnd: 15,
+    //     Tag: 'Retail',
     //     Team: {
     //       1: {
-    //         Name: 'Eduard',
-    //         JobFunction:'Frontend Developer'
+    //         Name: 'Andrei',
+    //         JobFunction: 'Head of Retail'
     //       },
     //       2: {
-    //         Name: 'Nicu',
-    //         JobFunction:'Senior Fullstack Developer'
+    //         Name: 'Mircea',
+    //         JobFunction: 'Supervisor Retail'
     //       }
     //     },
-    //     Trainings: 'Internship/ Training program Javascript',
-    //     Responsabilities: 'Main Purpose of this Job - Training in one of the below technologies/frameworks, with the purpose of developing your skills to successfully complete future software development projects. You’ll be trained and you’ll be working directly with our development teams to assist top clients worldwide'
-    //     })
-  }
+    //     Trainings: 'Training Retail',
+    //     Responsabilities: 'Interact with the clients to find their needs and offer them the best solutions and alternatives to them.'
+    //   })
+
+    // ADD RATINGS
+    // firebase.database().ref('Ratings/' + '-LRY7R2ae7mn0MzH06S8')
+    //   .push({
+    //       UserID: 'aLfaMJxyqGOtLq0cWv6wlMZWbNk2',
+    //       Rating: '1',
+    //       Comment: 'They refused to hire me, stating that i was overqualified for the job.'
+    //   })
+    //
+    // ADD RATINGS
+    firebase.database().ref('Ratings/' + '-LRXzNWrOhk8SFAjAAvK')
+      .push({
+          UserID: 'uB83DFQfw0cKp2dOghgesIOesMB3',
+          Rating: '5',
+          Comment: 'The best team i have ever met, they are my family and i love them all. Here i evolved not only education wise but also as a human!'
+      })
+   }
 }
 </script>
