@@ -8,7 +8,6 @@
           <footer>
             <small>
               <em>&mdash;John Johnson</em>
-              <v-btn @click="click">awefaw</v-btn>
             </small>
           </footer>
         </blockquote>
@@ -18,21 +17,8 @@
 </template>
 
 <script>
-/* eslint-disable */
-  import firebase from '@/firebase'
-  export default {
-    data () {
-      return {
-      }
-    },
-    methods: {
-      click () {
-      firebase.database().ref('Angajator')
-        .push({
-          titlu: 'this.title',
-          avatar: 'http://lorempixel.com/100/100/'
-        })
-      }
-    }
-  }
 </script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+</style>
