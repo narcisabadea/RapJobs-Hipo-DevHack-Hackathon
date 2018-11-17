@@ -7,7 +7,3 @@
     name: 'Employee'
   }
 </script>
-
-<style scoped>
-
-</style>
