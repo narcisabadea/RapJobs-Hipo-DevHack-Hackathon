@@ -1,29 +1,5 @@
 <template>
   <v-app>
-    <v-navigation-drawer
-      persistent
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      v-model="drawer"
-      enable-resize-watcher
-      fixed
-      app
-    >
-      <v-list>
-        <v-list-tile
-          value="true"
-          v-for="(item, i) in items"
-          :key="i"
-        >
-          <v-list-tile-action>
-            <v-icon v-html="item.icon"></v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title v-text="item.title"></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
     <v-toolbar
       app
       :clipped-left="true"
@@ -240,6 +216,14 @@ export default {
     },
     comparePasswords () {
       return this.password2 !== this.confirmPassword ? 'Passwords do not match' : ''
+    },
+    onLoad () {
+      if (this.userIsAuthenticated) {
+        this.$router.push('/')
+      }
+    },
+    userIsAuthenticated () {
+      return this.$store.getters.user !== null && this.$store.getters.user !== undefined
     }
   },
   methods: {
@@ -252,9 +236,9 @@ export default {
       this.dialogSignUp = false
     },
     forgotPassword () {
-      const emailprompt = prompt('Introdu adresa de email', '')
+      const emailprompt = prompt('Add your email adress', '')
       firebase.auth().sendPasswordResetEmail(emailprompt).then(function () {
-        window.alert('A fost trimis un email de recuperare a parolei la adresa: ' + emailprompt)
+        window.alert('An email has been sent to: ' + emailprompt)
       }).catch(function (error) {
         window.alert(error.message)
       })
@@ -263,7 +247,6 @@ export default {
   name: 'App',
   created () {
     this.$store.dispatch('AuthChange')
-    this.$store.dispatch('getUserData')
   }
 }
 </script>
