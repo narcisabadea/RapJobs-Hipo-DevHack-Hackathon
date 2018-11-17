@@ -4,7 +4,7 @@ import HelloWorld from '@/components/HelloWorld'
 import Employee from '@/components/Employee'
 import Employer from '@/components/Employer'
 import Test from '@/components/Test'
-import SearchEmployer from '@/components/SearchEmployer'
+import SearchJobs from '@/components/SearchJobs'
 import SearchEmployee from '@/components/SearchEmployee'
 import Profile from '@/components/Profile'
 
@@ -29,9 +29,9 @@ export default new Router({
       name: 'Test',
       component: Test
     }, {
-      path: '/searchEmployer',
-      name: 'SearchEmployer',
-      component: SearchEmployer
+      path: '/searchJobs',
+      name: 'SearchJobs',
+      component: SearchJobs
     }, {
       path: '/searchEmployee',
       name: 'SearchEmployee',

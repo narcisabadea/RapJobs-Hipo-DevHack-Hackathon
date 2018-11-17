@@ -5,7 +5,9 @@
       :clipped-left="true"
       dark color="primary"
     >
-      <v-toolbar-title class="white--text">Titlu :)</v-toolbar-title>
+      <router-link :to="'/'">
+        <v-toolbar-title class="white--text">Titlu :)</v-toolbar-title>
+      </router-link>
       <v-spacer></v-spacer>
 
       <v-menu offset-y v-show="userIsAuthenticated">
@@ -147,7 +149,7 @@
      <v-dialog v-model="dialogTestNext">
       <v-layout>
         <v-card>
-          <v-card-title primary-title> 
+          <v-card-title primary-title>
             Personality Test
           </v-card-title>
           <v-layout col>
@@ -265,6 +267,9 @@ export default {
   created () {
     this.$store.dispatch('AuthChange')
     this.$store.dispatch('getUserData')
+    this.$store.dispatch('readJobs')
+    this.$store.dispatch('readEmployer')
+    this.$store.dispatch('readRatings')
     // ADD EMPLOYER
     // firebase.database().ref('Employer')
     // .push({
