@@ -264,7 +264,6 @@ export default {
   name: 'App',
   created () {
     this.$store.dispatch('AuthChange')
-    this.$store.dispatch('getUserData')
     // ADD EMPLOYER
     // firebase.database().ref('Employer')
     // .push({

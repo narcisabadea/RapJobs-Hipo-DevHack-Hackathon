@@ -9,7 +9,7 @@ export default new Vuex.Store({
     fb: {
       db: firebase.database()
     },
-    user: '',
+    user: null,
     error: null,
     userdetails: {}
   },
@@ -20,8 +20,8 @@ export default new Vuex.Store({
     setError (state, payload) {
       state.error = payload
     },
-    gotUser: (state, payload) => {
-      state.userdetails = payload
+    gotUsers: (state, payload) => {
+      state.userdetails.push(payload)
     }
   },
   actions: {
@@ -74,7 +74,7 @@ export default new Vuex.Store({
     AuthChange ({commit}) {
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
-          commit('setUser', user.uid)
+          commit('setUser', user)
         } else {
           commit('setUser', null)
         }
