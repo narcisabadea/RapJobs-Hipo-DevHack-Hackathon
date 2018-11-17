@@ -8,6 +8,7 @@
           <footer>
             <small>
               <em>&mdash;John Johnson</em>
+              <v-btn @click="click">awefaw</v-btn>
             </small>
           </footer>
         </blockquote>
@@ -24,12 +25,14 @@
       return {
       }
     },
-    // created () {
-    //   firebase.database().ref('Angajator')
-    //     .push({
-    //       titlu: 'this.title',
-    //       avatar: 'http://lorempixel.com/100/100/'
-    //     })
-    //   }
+    methods: {
+      click () {
+      firebase.database().ref('Angajator')
+        .push({
+          titlu: 'this.title',
+          avatar: 'http://lorempixel.com/100/100/'
+        })
+      }
+    }
   }
 </script>
