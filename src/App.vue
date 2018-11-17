@@ -234,6 +234,70 @@ export default {
       })
     }
   },
-  name: 'App'
+  name: 'App',
+  created () {
+    // ADD EMPLOYER
+    // firebase.database().ref('Employer')
+    // .push({
+    //   Adress: 'Oracle Tower, corp B, et. 1-4, Calea Floreasca 169A, București',
+    //   Industry: 'Computer Hardware & Software',
+    //   Jobs: {
+    //     id: 'adwad',
+    //     id1: 'awefawef'
+    //   },
+    //   Management: {
+    //     1: {
+    //       Name: 'Safra A. Catz',
+    //       JobFunction: 'Chief Executive Officer'
+    //     },
+    //     2: {
+    //       Name: 'Jeffrey O. Henley',
+    //       JobFunction: 'Vice Chairman of the Board'
+    //     },
+    //     3: {
+    //       Name: 'Mark Hurd',
+    //       JobFunction: 'Chief Executive Officer'
+    //     }
+    //   },
+    //   Description: 'Leading the cloud. From intelligent business applications to infrastructure, we deliver tomorrow’s emerging technologies today, like the world’s first - and only - autonomous database.',
+    //   Name: 'Oracle Romania',
+    //   Values: '"Oracle thrives because of the exceptional talent we have attracted to our team. Our employees are creating the technologies of tomorrow." —Larry Ellison, Executive Chairman and Chief Technology Officer',
+    //   Website: 'https://www.oracle.com/ro/index.html'
+    // })
+
+    // ADD JOBS
+    // firebase.database().ref('Jobs')
+    //   .push({
+    //     Benefits: 'Flexible hours, Prestigious clients, Fruits Snack Days, Unlimited delicious coffee, Pizza days, Company retreats',
+    //     Description: 'We are looking for an ambitious, innovative and flexible student who wants to go the extra mile if necessary and become our colleague on the short or long term.',
+    //     EmployerID: '-LRXXafjoEBkpwaHnC0G',
+    //     Name: 'Front End (Javascript+React) Senior Developer',
+    //     Other: '',
+    //     RecruitmentProcess: 'Technical interview',
+    //     Requirements: {
+    //       Javascript: 'true',
+    //       React: 'true'
+    //     },
+    //     Salary: 1600,
+    //     ScheduleStart: 9,
+    //     Domain: 'IT Software',
+    //     JobType: 'full-time',
+    //     Location: 'Bucharest',
+    //     ScheduleEnd: 17,
+    //     Tag: 'Web Development',
+    //     Team: {
+    //       1: {
+    //         Name: 'Eduard',
+    //         JobFunction:'Frontend Developer'
+    //       },
+    //       2: {
+    //         Name: 'Nicu',
+    //         JobFunction:'Senior Fullstack Developer'
+    //       }
+    //     },
+    //     Trainings: 'Internship/ Training program Javascript',
+    //     Responsabilities: 'Main Purpose of this Job - Training in one of the below technologies/frameworks, with the purpose of developing your skills to successfully complete future software development projects. You’ll be trained and you’ll be working directly with our development teams to assist top clients worldwide'
+    //     })
+  }
 }
 </script>
