@@ -9,8 +9,9 @@ export default new Vuex.Store({
     fb: {
       db: firebase.database()
     },
-    user: null,
-    error: null
+    user: '',
+    error: null,
+    userdetails: {}
   },
   mutations: {
     setUser (state, payload) {
@@ -18,6 +19,9 @@ export default new Vuex.Store({
     },
     setError (state, payload) {
       state.error = payload
+    },
+    gotUser: (state, payload) => {
+      state.userdetails = payload
     }
   },
   actions: {
@@ -28,7 +32,6 @@ export default new Vuex.Store({
             const newUser = {
               id: firebase.auth().currentUser.uid
             }
-            console.log(payload.email)
             commit('setUser', newUser)
           }
         )
@@ -59,9 +62,31 @@ export default new Vuex.Store({
             console.log(error)
           }
         )
+    },
+    AuthChange ({commit}) {
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          commit('setUser', user.uid)
+        } else {
+          commit('setUser', null)
+        }
+      })
+    },
+    getUserData ({commit}) {
+      console.log(this.state.user)
+      console.log(firebase.auth().currentUser.uid)
+      firebase.database().ref('Employee/')
+        .on('value', snap => {
+          console.log(snap)
+          console.log('wefw' + this.$state.user)
+          const myObj = snap.val()
+          console.log(myObj)
+          commit('gotUser', myObj)
+        })
     }
   },
   getters: {
-    user: state => state.user
+    user: state => state.user,
+    userdetails: state => state.userdetails
   }
 })
