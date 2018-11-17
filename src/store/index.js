@@ -63,6 +63,14 @@ export default new Vuex.Store({
           }
         )
     },
+    signOut ({commit}) {
+      firebase.auth().signOut().then(function () {
+        commit('setUser', null)
+      }).catch(
+        error => {
+          console.log(error)
+        })
+    },
     AuthChange ({commit}) {
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
@@ -78,6 +86,9 @@ export default new Vuex.Store({
           const myObj = snap.val()
           commit('gotUser', myObj)
         })
+    },
+    userIsAuthenticated () {
+      return this.$store.getters.user !== null && this.$store.getters.user !== undefined
     }
   },
   getters: {
