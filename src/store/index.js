@@ -37,6 +37,28 @@ export default new Vuex.Store({
             commit('setError', error)
           }
         )
+    },
+    signUp ({commit}, payload) {
+      firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+        .then(
+          user => {
+            const newUser = {
+              id: firebase.auth().currentUser.uid
+            }
+            commit('setUser', newUser)
+            firebase.database().ref('Employee/' + newUser.id).set({
+              Name: payload.name,
+              Surname: payload.surname,
+              Email: payload.email,
+              Test: false
+            })
+          }
+        )
+        .catch(
+          error => {
+            console.log(error)
+          }
+        )
     }
   },
   getters: {

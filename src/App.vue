@@ -31,6 +31,8 @@
     >
       <v-toolbar-title class="white--text">Titlu :)</v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-btn flat @click="(dialogTest = true)"> Take the personality test
+      </v-btn>
       <v-btn flat @click="(dialogSignUp = true)"> Sign up
       </v-btn>
       <v-btn flat @click="(dialogSignIn = true)"> Sign in
@@ -70,9 +72,7 @@
                 <v-text-field
                   name="input-10-1"
                   label="Enter your password"
-                  hint="At least 8 characters"
-                  v-model="password"
-                  min="8"
+                  v-model="password2"
                   :append-icon-cb="() => (e1 = !e1)"
                   :type="e1 ? 'password' : 'text'"
                   :rules="[rules.required]"
@@ -82,16 +82,14 @@
                 <v-text-field
                   name="input-10-1"
                   label="Confirm password"
-                  hint="At least 8 characters"
                   v-model="confirmPassword"
-                  min="8"
                   :type="e1 ? 'password' : 'text'"
                   :rules="[comparePasswords]"
                 >
                 </v-text-field>
               </v-form>
             </v-card-text>
-              <v-btn color="primary" type="submit" @click="(dialogSignUp = false)">Sign Up</v-btn>
+              <v-btn color="primary" type="submit" @click="userSignUp">Sign Up</v-btn>
               <v-btn color="primary" type="submit" @click="(dialogSignUp = false)">Back</v-btn>
           </v-card>
         </v-flex>
@@ -130,6 +128,40 @@
       </v-layout>
     </v-dialog>
 
+    <v-dialog v-model="dialogTest" max-width="50%" persistent>
+      <v-layout align-center justify-center>
+        <v-flex>
+          <v-card class="elevation-12">
+            <v-toolbar dark color="primary">
+              <v-toolbar-title>Personality Test</v-toolbar-title>
+            </v-toolbar><br>
+            <v-card-text>
+            <p>1.Relax, get in a quiet place, and read the entire text before making any markings.</p>
+            <p>2.Before each word on the test below, place a number that best describes you, 5 being most like you and 1 being least like you. Try to be objective.</p>
+            <p>3.Turn the page over for instructions on scoring ONLY after completing the test.</p>
+            </v-card-text>
+            <v-btn color="primary" type="submit">Exit</v-btn>
+            <v-btn color="primary" type="submit">Next</v-btn>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-dialog>
+
+     <v-dialog v-model="dialogTest" max-width="50%" persistent>
+      <v-layout align-center justify-center>
+        <v-flex>
+          <v-card class="elevation-12">
+            <v-toolbar dark color="primary">
+              <v-toolbar-title>Personality Test</v-toolbar-title>
+            </v-toolbar><br>
+            
+            <v-btn color="primary" type="submit">Exit</v-btn>
+            <v-btn color="primary" type="submit">Next</v-btn>
+          </v-card>
+        </v-flex>
+      </v-layout>
+    </v-dialog>
+
     <v-footer :fixed="fixed" app>
       <span>&copy; 2018</span>
     </v-footer>
@@ -157,10 +189,12 @@ export default {
       email1: '',
       Surname: '',
       password: '',
+      password2: '',
       passwordConfirm: '',
       confirmPassword: '',
       dialogSignIn: false,
       dialogSignUp: false,
+      dialogTest: false,
       e1: true,
       rules: {
         required: (value) => !!value || 'Required.',
@@ -179,13 +213,17 @@ export default {
       return this.$store.getters.error
     },
     comparePasswords () {
-      return this.password !== this.confirmPassword ? 'Passwords do not match' : ''
+      return this.password2 !== this.confirmPassword ? 'Passwords do not match' : ''
     }
   },
   methods: {
     userSignin () {
       this.$store.dispatch('signIn', {email: this.email, password: this.password})
       this.dialogSignIn = false
+    },
+    userSignUp () {
+      this.$store.dispatch('signUp', {email: this.email1, password: this.password2, name: this.Name, surname: this.Surname})
+      this.dialogSignUp = false
     },
     forgotPassword () {
       const emailprompt = prompt('Introdu adresa de email', '')
