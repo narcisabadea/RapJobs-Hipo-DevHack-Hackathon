@@ -26,7 +26,7 @@ export default new Vuex.Store({
         .then(
           user => {
             const newUser = {
-              id: user.uid
+              id: firebase.auth().currentUser.uid
             }
             console.log(payload.email)
             commit('setUser', newUser)

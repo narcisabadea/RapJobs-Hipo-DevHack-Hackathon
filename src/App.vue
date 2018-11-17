@@ -122,7 +122,7 @@
               <v-btn flat color="indigo darken-1" type="submit" @click="forgotPassword"> Forgot password
               </v-btn>
               <v-spacer></v-spacer>
-              <v-btn type="submit" color="indigo darken-1 white--text" @click="(userSignin) && (dialogSignIn = false)"> Log in
+              <v-btn color="indigo darken-1 white--text" @click="userSignin"> Log in
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -184,8 +184,8 @@ export default {
   },
   methods: {
     userSignin () {
-      console.log(this.email)
       this.$store.dispatch('signIn', {email: this.email, password: this.password})
+      this.dialogSignIn = false
     },
     forgotPassword () {
       const emailprompt = prompt('Introdu adresa de email', '')
