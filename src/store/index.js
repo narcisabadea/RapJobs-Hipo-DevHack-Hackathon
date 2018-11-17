@@ -11,7 +11,10 @@ export default new Vuex.Store({
     },
     user: '',
     error: null,
-    userdetails: {}
+    userdetails: {},
+    jobs: null,
+    employers: null,
+    ratings: null
   },
   mutations: {
     setUser (state, payload) {
@@ -22,6 +25,24 @@ export default new Vuex.Store({
     },
     gotUser: (state, payload) => {
       state.userdetails = payload
+    },
+    emptyJobs: (state) => {
+      state.jobs = []
+    },
+    gotJobs: (state, payload) => {
+      state.jobs = payload
+    },
+    emptyEmployer: (state) => {
+      state.employers = []
+    },
+    gotEmployer: (state, payload) => {
+      state.employers = payload
+    },
+    emptyRating: (state) => {
+      state.ratings = []
+    },
+    gotRating: (state, payload) => {
+      state.ratings = payload
     }
   },
   actions: {
@@ -73,15 +94,45 @@ export default new Vuex.Store({
       })
     },
     getUserData ({commit}) {
-      console.log(this.state.user)
-      console.log(firebase.auth().currentUser.uid)
+      // console.log(this.state.user)
+      // console.log(firebase.auth().currentUser.uid)
       firebase.database().ref('Employee/')
         .on('value', snap => {
-          console.log(snap)
-          console.log('wefw' + this.$state.user)
+          // console.log(snap)
+          // console.log('wefw' + this.$state.user)
           const myObj = snap.val()
-          console.log(myObj)
+          // console.log(myObj)
           commit('gotUser', myObj)
+        })
+    },
+    readJobs ({commit}) {
+      return firebase.database().ref('Jobs')
+        .on('value', snap => {
+          commit('emptyJobs')
+          const myObj = snap.val()
+          commit('gotJobs', myObj)
+        }, function (error) {
+          console.log('Error: ' + error.message)
+        })
+    },
+    readEmployer ({commit}) {
+      return firebase.database().ref('Employer')
+        .on('value', snap => {
+          commit('emptyEmployer')
+          const myObj = snap.val()
+          commit('gotEmployer', myObj)
+        }, function (error) {
+          console.log('Error: ' + error.message)
+        })
+    },
+    readRatings ({commit}) {
+      return firebase.database().ref('Ratings')
+        .on('value', snap => {
+          commit('emptyRating')
+          const myObj = snap.val()
+          commit('gotRating', myObj)
+        }, function (error) {
+          console.log('Error: ' + error.message)
         })
     }
   },
