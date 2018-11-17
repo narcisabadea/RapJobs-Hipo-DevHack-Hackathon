@@ -3,9 +3,10 @@
 </template>
 
 <script>
-    export default {
-        name: "Employee"
-    }
+/* eslint-disable */
+export default {
+name: 'Employee'
+}
 </script>
 
 <style scoped>
