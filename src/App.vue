@@ -27,7 +27,7 @@
     <v-toolbar
       app
       :clipped-left="true"
-      dark color="primary"
+      dark color="light-blue lighten-1"
     >
       <v-toolbar-title class="white--text">Titlu :)</v-toolbar-title>
       <v-spacer></v-spacer>
@@ -138,51 +138,19 @@
               <v-toolbar-title>Personality Test</v-toolbar-title>
             </v-toolbar><br>
             <v-card-text>
-              <p>1.Relax, get in a quiet place, and read the entire text before making any markings.</p>
-              <p>2.Before each word on the test below, place a number that best describes you, 5 being most like you and 1 being least like you. Try to be objective.</p>
-              <p>3.Turn the page over for instructions on scoring ONLY after completing the test.</p>
+            <v-alert
+              :value="true"
+              type="success"
+            >
+              <h3>Relax, get in a quiet place, and read the entire text before making any markings.</h3>
+            </v-alert>
             </v-card-text>
-            <v-btn color="primary" type="submit" @click="dialogTest=false">Exit</v-btn>
-            <v-btn color="primary" type="submit" @click="(dialogTestNext=true) && (dialogTest=false)">Next</v-btn>
+              <v-btn color="primary" type="submit" @click="dialogTest=false">Exit</v-btn>
+              <v-btn color="primary" to="/Test" type="submit" @click="dialogTest=false">Next</v-btn>
           </v-card>
         </v-flex>
       </v-layout>
     </v-dialog>
-
-     <v-dialog v-model="dialogTestNext">
-      <v-layout>
-        <v-card>
-          <v-card-title primary-title> 
-            Personality Test
-          </v-card-title>
-          <v-layout col>
-            <v-flex>
-              <v-list dense>
-                <v-list-tile>
-                  <v-list-tile-content>OPTIMISTIC</v-list-tile-content>
-                </v-list-tile>
-                <v-divider></v-divider>
-                <v-list-tile>
-                  <v-list-tile-content>VERY QUIET</v-list-tile-content>
-                </v-list-tile>
-                <v-divider></v-divider>
-                <v-list-tile>
-                  <v-list-tile-content>DEEP FEELING</v-list-tile-content>
-                </v-list-tile>
-                <v-divider></v-divider>
-                <v-list-tile>
-                  <v-list-tile-content>EMOTIONAL</v-list-tile-content>
-                </v-list-tile>
-                <v-divider></v-divider>
-              </v-list>
-            </v-flex>
-          </v-layout>
-        </v-card>
-      </v-layout>
-    </v-dialog>
-
-    
-
 
 
 
@@ -220,7 +188,6 @@ export default {
       dialogSignIn: false,
       dialogSignUp: false,
       dialogTest: false,
-      dialogTestNext: false,
       e1: true,
       number: '',
       rules: {
