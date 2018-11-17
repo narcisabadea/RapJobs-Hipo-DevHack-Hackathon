@@ -37,6 +37,8 @@
       </v-btn>
       <v-btn flat @click="(dialogSignIn = true)"> Sign in
       </v-btn>
+      <v-btn flat to="/profile"> Profile
+      </v-btn>
     </v-toolbar>
     <v-content>
       <router-view/>
@@ -136,31 +138,53 @@
               <v-toolbar-title>Personality Test</v-toolbar-title>
             </v-toolbar><br>
             <v-card-text>
-            <p>1.Relax, get in a quiet place, and read the entire text before making any markings.</p>
-            <p>2.Before each word on the test below, place a number that best describes you, 5 being most like you and 1 being least like you. Try to be objective.</p>
-            <p>3.Turn the page over for instructions on scoring ONLY after completing the test.</p>
+              <p>1.Relax, get in a quiet place, and read the entire text before making any markings.</p>
+              <p>2.Before each word on the test below, place a number that best describes you, 5 being most like you and 1 being least like you. Try to be objective.</p>
+              <p>3.Turn the page over for instructions on scoring ONLY after completing the test.</p>
             </v-card-text>
-            <v-btn color="primary" type="submit">Exit</v-btn>
-            <v-btn color="primary" type="submit">Next</v-btn>
+            <v-btn color="primary" type="submit" @click="dialogTest=false">Exit</v-btn>
+            <v-btn color="primary" type="submit" @click="(dialogTestNext=true) && (dialogTest=false)">Next</v-btn>
           </v-card>
         </v-flex>
       </v-layout>
     </v-dialog>
 
-     <v-dialog v-model="dialogTest" max-width="50%" persistent>
-      <v-layout align-center justify-center>
-        <v-flex>
-          <v-card class="elevation-12">
-            <v-toolbar dark color="primary">
-              <v-toolbar-title>Personality Test</v-toolbar-title>
-            </v-toolbar><br>
-            
-            <v-btn color="primary" type="submit">Exit</v-btn>
-            <v-btn color="primary" type="submit">Next</v-btn>
-          </v-card>
-        </v-flex>
+     <v-dialog v-model="dialogTestNext">
+      <v-layout>
+        <v-card>
+          <v-card-title primary-title> 
+            Personality Test
+          </v-card-title>
+          <v-layout col>
+            <v-flex>
+              <v-list dense>
+                <v-list-tile>
+                  <v-list-tile-content>OPTIMISTIC</v-list-tile-content>
+                </v-list-tile>
+                <v-divider></v-divider>
+                <v-list-tile>
+                  <v-list-tile-content>VERY QUIET</v-list-tile-content>
+                </v-list-tile>
+                <v-divider></v-divider>
+                <v-list-tile>
+                  <v-list-tile-content>DEEP FEELING</v-list-tile-content>
+                </v-list-tile>
+                <v-divider></v-divider>
+                <v-list-tile>
+                  <v-list-tile-content>EMOTIONAL</v-list-tile-content>
+                </v-list-tile>
+                <v-divider></v-divider>
+              </v-list>
+            </v-flex>
+          </v-layout>
+        </v-card>
       </v-layout>
     </v-dialog>
+
+    
+
+
+
 
     <v-footer :fixed="fixed" app>
       <span>&copy; 2018</span>
@@ -195,7 +219,9 @@ export default {
       dialogSignIn: false,
       dialogSignUp: false,
       dialogTest: false,
+      dialogTestNext: false,
       e1: true,
+      number: '',
       rules: {
         required: (value) => !!value || 'Required.',
         email: (value) => {
@@ -234,6 +260,71 @@ export default {
       })
     }
   },
-  name: 'App'
+  name: 'App',
+  created () {
+    this.$store.dispatch('AuthChange')
+    this.$store.dispatch('getUserData')
+    // ADD EMPLOYER
+    // firebase.database().ref('Employer')
+    // .push({
+    //   Adress: 'Oracle Tower, corp B, et. 1-4, Calea Floreasca 169A, București',
+    //   Industry: 'Computer Hardware & Software',
+    //   Jobs: {
+    //     id: 'adwad',
+    //     id1: 'awefawef'
+    //   },
+    //   Management: {
+    //     1: {
+    //       Name: 'Safra A. Catz',
+    //       JobFunction: 'Chief Executive Officer'
+    //     },
+    //     2: {
+    //       Name: 'Jeffrey O. Henley',
+    //       JobFunction: 'Vice Chairman of the Board'
+    //     },
+    //     3: {
+    //       Name: 'Mark Hurd',
+    //       JobFunction: 'Chief Executive Officer'
+    //     }
+    //   },
+    //   Description: 'Leading the cloud. From intelligent business applications to infrastructure, we deliver tomorrow’s emerging technologies today, like the world’s first - and only - autonomous database.',
+    //   Name: 'Oracle Romania',
+    //   Values: '"Oracle thrives because of the exceptional talent we have attracted to our team. Our employees are creating the technologies of tomorrow." —Larry Ellison, Executive Chairman and Chief Technology Officer',
+    //   Website: 'https://www.oracle.com/ro/index.html'
+    // })
+    // ADD JOBS
+    // firebase.database().ref('Jobs')
+    //   .push({
+    //     Benefits: 'Flexible hours, Prestigious clients, Fruits Snack Days, Unlimited delicious coffee, Pizza days, Company retreats',
+    //     Description: 'We are looking for an ambitious, innovative and flexible student who wants to go the extra mile if necessary and become our colleague on the short or long term.',
+    //     EmployerID: '-LRXXafjoEBkpwaHnC0G',
+    //     Name: 'Front End (Javascript+React) Senior Developer',
+    //     Other: '',
+    //     RecruitmentProcess: 'Technical interview',
+    //     Requirements: {
+    //       Javascript: 'true',
+    //       React: 'true'
+    //     },
+    //     Salary: 1600,
+    //     ScheduleStart: 9,
+    //     Domain: 'IT Software',
+    //     JobType: 'full-time',
+    //     Location: 'Bucharest',
+    //     ScheduleEnd: 17,
+    //     Tag: 'Web Development',
+    //     Team: {
+    //       1: {
+    //         Name: 'Eduard',
+    //         JobFunction:'Frontend Developer'
+    //       },
+    //       2: {
+    //         Name: 'Nicu',
+    //         JobFunction:'Senior Fullstack Developer'
+    //       }
+    //     },
+    //     Trainings: 'Internship/ Training program Javascript',
+    //     Responsabilities: 'Main Purpose of this Job - Training in one of the below technologies/frameworks, with the purpose of developing your skills to successfully complete future software development projects. You’ll be trained and you’ll be working directly with our development teams to assist top clients worldwide'
+    //     })
+  }
 }
 </script>

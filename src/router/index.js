@@ -6,6 +6,7 @@ import Employer from 'components/Employer'
 import Test from 'components/Test'
 import SearchEmployer from 'components/SearchEmployer'
 import SearchEmployee from 'components/SearchEmployee'
+import Profile from '@/components/Profile'
 
 Vue.use(Router)
 
@@ -35,6 +36,11 @@ export default new Router({
       path: '/searchEmployee',
       name: 'SearchEmployee',
       component: SearchEmployee
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: Profile
     }
   ]
 })
