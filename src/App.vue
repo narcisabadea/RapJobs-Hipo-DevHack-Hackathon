@@ -98,7 +98,6 @@
       </v-layout>
     </v-dialog>
 
-
     <v-dialog v-model="dialogSignIn" max-width="30%">
       <v-layout align-center justify-space-around row>
         <v-flex>
@@ -123,7 +122,7 @@
               <v-btn flat color="indigo darken-1" type="submit" @click="forgotPassword"> Forgot password
               </v-btn>
               <v-spacer></v-spacer>
-              <v-btn type="submit" color="indigo darken-1 white--text"> Log in
+              <v-btn type="submit" color="indigo darken-1 white--text" @click="(userSignin) && (dialogSignIn = false)"> Log in
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -173,11 +172,21 @@ export default {
     }
   },
   computed: {
+    user () {
+      return this.$store.getters.user
+    },
+    error () {
+      return this.$store.getters.error
+    },
     comparePasswords () {
       return this.password !== this.confirmPassword ? 'Passwords do not match' : ''
     }
   },
   methods: {
+    userSignin () {
+      console.log(this.email)
+      this.$store.dispatch('signIn', {email: this.email, password: this.password})
+    },
     forgotPassword () {
       const emailprompt = prompt('Introdu adresa de email', '')
       firebase.auth().sendPasswordResetEmail(emailprompt).then(function () {
