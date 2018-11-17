@@ -63,6 +63,14 @@ export default new Vuex.Store({
           }
         )
     },
+    signOut ({commit}) {
+      firebase.auth().signOut().then(function () {
+        commit('setUser', null)
+      }).catch(
+        error => {
+          console.log(error)
+        })
+    },
     AuthChange ({commit}) {
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
@@ -73,16 +81,14 @@ export default new Vuex.Store({
       })
     },
     getUserData ({commit}) {
-      console.log(this.state.user)
-      console.log(firebase.auth().currentUser.uid)
       firebase.database().ref('Employee/')
         .on('value', snap => {
-          console.log(snap)
-          console.log('wefw' + this.$state.user)
           const myObj = snap.val()
-          console.log(myObj)
           commit('gotUser', myObj)
         })
+    },
+    userIsAuthenticated () {
+      return this.$store.getters.user !== null && this.$store.getters.user !== undefined
     }
   },
   getters: {
