@@ -298,12 +298,12 @@ export default {
     // //   })
     // //
     // ADD RATINGS
-    firebase.database().ref('Ratings/' + '-LRY9BS9vMehcITbDrkR')
-      .push({
-          UserID: 'Npx44iPtvpM6TvDVIJsmmCtERxe2',
-          Rating: '1',
-          Comment: 'Salary not paid on time'
-      })
+    // firebase.database().ref('Ratings/' + '-LRY9BS9vMehcITbDrkR')
+    //   .push({
+    //       UserID: 'Npx44iPtvpM6TvDVIJsmmCtERxe2',
+    //       Rating: '1',
+    //       Comment: 'Salary not paid on time'
+    //   })
    }
 }
 </script>

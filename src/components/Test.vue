@@ -819,15 +819,10 @@ import firebase from '@/firebase'
           },
           methods: {
             rezTest () {
-                    var r1 = 200
-                    var r2 = 100
-                    var r3 = 25
-                    var r4 = 1
-
-                // var r1 = parseInt(this.C11)+parseInt(this.C21)+parseInt(this.C31)+parseInt(this.C41)+parseInt(this.C51)+parseInt(this.C61)+parseInt(this.C71)+parseInt(this.C81)+parseInt(this.C91)+parseInt(this.C101)+parseInt(this.C111)+parseInt(this.C121)+parseInt(this.C131)+parseInt(this.C141)+parseInt(this.C151)+parseInt(this.C161)+parseInt(this.C171)+parseInt(this.C181)
-                // var r2 = parseInt(this.C12)+parseInt(this.C22)+parseInt(this.C32)+parseInt(this.C42)+parseInt(this.C52)+parseInt(this.C62)+parseInt(this.C72)+parseInt(this.C82)+parseInt(this.C92)+parseInt(this.C102)+parseInt(this.C112)+parseInt(this.C122)+parseInt(this.C132)+parseInt(this.C142)+parseInt(this.C152)+parseInt(this.C162)+parseInt(this.C172)+parseInt(this.C182)
-                // var r3 = parseInt(this.C13)+parseInt(this.C23)+parseInt(this.C33)+parseInt(this.C43)+parseInt(this.C53)+parseInt(this.C63)+parseInt(this.C73)+parseInt(this.C83)+parseInt(this.C93)+parseInt(this.C103)+parseInt(this.C113)+parseInt(this.C123)+parseInt(this.C133)+parseInt(this.C143)+parseInt(this.C153)+parseInt(this.C163)+parseInt(this.C173)+parseInt(this.C183)
-                // var r4 = parseInt(this.C14)+parseInt(this.C24)+parseInt(this.C34)+parseInt(this.C44)+parseInt(this.C54)+parseInt(this.C64)+parseInt(this.C74)+parseInt(this.C84)+parseInt(this.C94)+parseInt(this.C104)+parseInt(this.C114)+parseInt(this.C124)+parseInt(this.C134)+parseInt(this.C144)+parseInt(this.C154)+parseInt(this.C164)+parseInt(this.C174)+parseInt(this.C184)
+                var r1 = parseInt(this.C11)+parseInt(this.C21)+parseInt(this.C31)+parseInt(this.C41)+parseInt(this.C51)+parseInt(this.C61)+parseInt(this.C71)+parseInt(this.C81)+parseInt(this.C91)+parseInt(this.C101)+parseInt(this.C111)+parseInt(this.C121)+parseInt(this.C131)+parseInt(this.C141)+parseInt(this.C151)+parseInt(this.C161)+parseInt(this.C171)+parseInt(this.C181)
+                var r2 = parseInt(this.C12)+parseInt(this.C22)+parseInt(this.C32)+parseInt(this.C42)+parseInt(this.C52)+parseInt(this.C62)+parseInt(this.C72)+parseInt(this.C82)+parseInt(this.C92)+parseInt(this.C102)+parseInt(this.C112)+parseInt(this.C122)+parseInt(this.C132)+parseInt(this.C142)+parseInt(this.C152)+parseInt(this.C162)+parseInt(this.C172)+parseInt(this.C182)
+                var r3 = parseInt(this.C13)+parseInt(this.C23)+parseInt(this.C33)+parseInt(this.C43)+parseInt(this.C53)+parseInt(this.C63)+parseInt(this.C73)+parseInt(this.C83)+parseInt(this.C93)+parseInt(this.C103)+parseInt(this.C113)+parseInt(this.C123)+parseInt(this.C133)+parseInt(this.C143)+parseInt(this.C153)+parseInt(this.C163)+parseInt(this.C173)+parseInt(this.C183)
+                var r4 = parseInt(this.C14)+parseInt(this.C24)+parseInt(this.C34)+parseInt(this.C44)+parseInt(this.C54)+parseInt(this.C64)+parseInt(this.C74)+parseInt(this.C84)+parseInt(this.C94)+parseInt(this.C104)+parseInt(this.C114)+parseInt(this.C124)+parseInt(this.C134)+parseInt(this.C144)+parseInt(this.C154)+parseInt(this.C164)+parseInt(this.C174)+parseInt(this.C184)
                 var rezultat = Math.max(r1,r2,r3,r4)
 
                 switch(rezultat)
