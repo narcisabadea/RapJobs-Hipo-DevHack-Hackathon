@@ -13,7 +13,7 @@
         <v-btn
           flat
           slot="activator">
-          <v-icon left>account_circle</v-icon> Account
+          <v-icon round left>account_circle</v-icon> Account
         </v-btn>
         <v-list>
           <v-list-tile>
@@ -29,11 +29,11 @@
         </v-list>
       </v-menu>
 
-      <v-btn flat @click="(dialogTest = true)"> Take the personality test
+      <v-btn flat round @click="(dialogTest = true)"> Take the personality test
       </v-btn>
-      <v-btn flat @click="(dialogSignUp = true)" v-if="userIsAuthenticated === false"> Sign up
+      <v-btn flat round @click="(dialogSignUp = true)" v-if="userIsAuthenticated === false"> Sign up
       </v-btn>
-      <v-btn flat @click="(dialogSignIn = true)" v-if="userIsAuthenticated === false"> Sign in
+      <v-btn flat round @click="(dialogSignIn = true)" v-if="userIsAuthenticated === false"> Sign in
       </v-btn>
     </v-toolbar>
     <v-content>
@@ -126,7 +126,7 @@
       </v-layout>
     </v-dialog>
 
-    <v-dialog v-model="dialogTest" max-width="50%" persistent>
+    <v-dialog round v-model="dialogTest" max-width="50%" persistent>
       <v-layout align-center justify-center>
         <v-flex>
           <v-card class="elevation-12">
