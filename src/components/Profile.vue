@@ -46,6 +46,24 @@
             <v-card-title class="headline grey lighten-2">
               Add a new email adress
             </v-card-title>
+              <v-card-text>
+              <v-text-field
+                prepend-icon="email"
+                v-model="email3"
+                label="Current email adress">
+                  New email adress
+              </v-text-field>
+            </v-card-text>
+            <v-card-text>
+              <v-text-field
+                prepend-icon="email"
+                v-model="password3"
+                label="Password"
+                :append-icon="show3 ? 'visibility_off' : 'visibility'"
+                :type="show3 ? 'text' : 'password'"
+                @click:append="show3 = !show3">
+              </v-text-field>
+            </v-card-text>
             <v-card-text>
               <v-text-field
                 prepend-icon="email"
@@ -130,10 +148,13 @@ export default {
   data () {
     return {
       password: '',
+      password3: '',
       email: '',
       email2: '',
+      email3: '',
       show1: '',
       show2: '',
+      show3: '',
       name: '',
       surname: '',
       e1: true,
@@ -164,7 +185,6 @@ export default {
     }
   },
   computed: {
-   
     userdetails () {
       return this.$store.getters.userdetails
     },
@@ -174,7 +194,6 @@ export default {
     getuserdetails () {
       console.log("1231",this.keysUsers.indexOf(this.user))
       const x = this.keysUsers.indexOf(this.user.uid)
-      
       const userdet = this.userdetails[x]
       return userdet
     }
@@ -189,15 +208,12 @@ export default {
           console.log(snap.val())
           const myObj = snap.val()
           const x= firebase.auth().currentUser
-          console.log(myObj[x.uid])
-          console.log(myObj[x.uid].Name)
-          console.log(myObj[x.uid].Surname)
-         this.name = myObj[x.uid].Name
-         this.surname = myObj[x.uid].Surname
-          console.log(this.name)
+          this.name = myObj[x.uid].Name
+          this.surname = myObj[x.uid].Surname
         })
     },
     updateEmail () {
+      this.$store.dispatch('signIn', {email: this.email3, password: this.password3})
       this.dialogEmail = false
       var email = document.getElementById('email').value
       firebase.auth().currentUser.updateEmail(email).then(function () {
@@ -254,6 +270,5 @@ export default {
     this.user()
     console.log( this.user())
     this.$store.dispatch('getUserData')
-    
 }}
 </script>
