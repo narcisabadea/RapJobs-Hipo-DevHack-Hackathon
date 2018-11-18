@@ -29,7 +29,7 @@
       :clipped-left="true"
       dark color="light-blue lighten-1"
     >
-      <v-toolbar-title class="white--text">Titlu :)</v-toolbar-title>
+      <v-toolbar-title class="white--text">Rapjobs</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn flat round @click="(dialogTest = true)"> Take the personality test
       </v-btn>
@@ -151,8 +151,6 @@
         </v-flex>
       </v-layout>
     </v-dialog>
-
-
 
     <v-footer :fixed="fixed" app>
       <span>&copy; 2018</span>
@@ -298,12 +296,12 @@ export default {
     //   })
     //
     // ADD RATINGS
-    firebase.database().ref('Ratings/' + '-LRXzNWrOhk8SFAjAAvK')
-      .push({
-          UserID: 'uB83DFQfw0cKp2dOghgesIOesMB3',
-          Rating: '5',
-          Comment: 'The best team i have ever met, they are my family and i love them all. Here i evolved not only education wise but also as a human!'
-      })
+    // firebase.database().ref('Ratings/' + '-LRXzNWrOhk8SFAjAAvK')
+    //   .push({
+    //       UserID: 'uB83DFQfw0cKp2dOghgesIOesMB3',
+    //       Rating: '5',
+    //       Comment: 'The best team i have ever met, they are my family and i love them all. Here i evolved not only education wise but also as a human!'
+    //   })
    }
 }
 </script>
