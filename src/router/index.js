@@ -23,7 +23,7 @@ export default new Router({
       name: 'Employee',
       component: Employee
     }, {
-      path: '/employer',
+      path: '/employer/:id',
       name: 'Employer',
       component: Employer
     }, {
