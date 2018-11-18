@@ -4,12 +4,11 @@
 
 <script>
 /* eslint-disable */
-export default {
-name: 'Employer'
-}
+    export default {
+    name: 'SearchEmployee'
+    }
 </script>
 
 <style scoped>
 
 </style>
-

@@ -41,6 +41,7 @@ img {
 </style>
 
 <script>
+/* eslint-disable */
 import firebase from '@/firebase'
 export default {
   name: 'Profile',
