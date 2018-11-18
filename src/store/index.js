@@ -14,7 +14,8 @@ export default new Vuex.Store({
         userdetails: null,
         jobs: null,
         employers: null,
-        ratings: null
+        ratings: null,
+        test: null
     },
     mutations: {
         setUser(state, payload) {
@@ -46,6 +47,9 @@ export default new Vuex.Store({
         },
         gotRating: (state, payload) => {
             state.ratings = payload
+        },
+        gotTest: (state, payload) => {
+            state.test = payload
         }
     },
     actions: {
@@ -57,6 +61,12 @@ export default new Vuex.Store({
                             id: firebase.auth().currentUser.uid
                         }
                         commit('setUser', newUser)
+                        firebase.database().ref('Employee/' + newUser.id)
+                            .on('value', snap => {
+                                const myObj = snap.val()
+                                console.log(myObj)
+                                commit('gotTest', myObj.Test)
+                            })
                     }
                 )
                 .catch(
@@ -147,8 +157,7 @@ export default new Vuex.Store({
         setTestResult({ commit }, payload) {
             firebase.database().ref('Employee/' + this.state.user.uid).update({ Test: payload })
             commit('getTestResult', ifTest)
-        },
-
+        }
     },
     getters: {
         user: state => state.user,
@@ -156,6 +165,6 @@ export default new Vuex.Store({
         jobs: state => state.jobs,
         employers: state => state.employers,
         ratings: state => state.ratings,
-        ifTest: state => state.ifTest
+        test: state => state.test
     }
 })
