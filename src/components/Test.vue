@@ -689,7 +689,7 @@
         </v-flex>
         </v-layout>
     </v-container>
-    <v-btn color="primary" to= "/"type="submit" @click="dialogTest=false">Exit</v-btn>
+    <v-btn color="primary" to= "/" type="submit" @click="dialogTest=false">Exit</v-btn>
     <v-btn color="primary" type="submit" @click="rezTest">Next</v-btn>
     </v-layout>
     <v-dialog v-model="dialogRezTest" max-width="50%" persistent>
@@ -810,7 +810,6 @@ import firebase from '@/firebase'
                 rasp3: null,
                 rasp4: null
             }
-          
           },
           computed: {
               user () {
