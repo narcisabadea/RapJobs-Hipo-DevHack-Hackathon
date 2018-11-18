@@ -306,12 +306,12 @@ export default {
     //   })
     //
     // ADD RATINGS
-    firebase.database().ref('Ratings/' + '-LRXzNWrOhk8SFAjAAvK')
-      .push({
-          UserID: 'uB83DFQfw0cKp2dOghgesIOesMB3',
-          Rating: '5',
-          Comment: 'The best team i have ever met, they are my family and i love them all. Here i evolved not only education wise but also as a human!'
-      })
+    // firebase.database().ref('Ratings/' + '-LRXzNWrOhk8SFAjAAvK')
+    //   .push({
+    //       UserID: 'uB83DFQfw0cKp2dOghgesIOesMB3',
+    //       Rating: '5',
+    //       Comment: 'The best team i have ever met, they are my family and i love them all. Here i evolved not only education wise but also as a human!'
+    //   })
    }
 }
 </script>

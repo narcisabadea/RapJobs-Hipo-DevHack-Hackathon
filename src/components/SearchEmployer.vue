@@ -8,22 +8,11 @@
             <v-layout row wrap>
               <v-flex xs12 sm12>
                 <v-text-field
-                  :items="jobName"
+                  :items="employerName"
                   v-model="selectedName"
                   label="Nume"
                   autocomplete
                 ></v-text-field>
-              </v-flex>
-            </v-layout>
-            <!-- SELECT LOCATION -->
-            <v-layout row wrap>
-              <v-flex xs12 sm12>
-                <v-autocomplete
-                  :items="jobLocations"
-                  label="Locatie"
-                  v-model="selectedLocation"
-                >
-                </v-autocomplete>
               </v-flex>
             </v-layout>
             <!-- SELECT SORT BY RATING -->
@@ -72,15 +61,10 @@
             <v-list three-line>
               <template v-for="(item, index) in dataFilter">
                 <v-list-tile
-                  :key="index"
-                  avatar>
-                  <!-- <v-list-tile-avatar>
-                    <img :src="item.Logo">
-                  </v-list-tile-avatar> -->
+                  :key="index">
                   <v-list-tile-content>
                     <v-list-tile-title>{{item.Name}} <span style="opacity: 0.3;color:grey">- {{item.Location}} </span></v-list-tile-title>
-                    <v-list-tile-sub-title v-if="selectSearch === 'university'" class="text-truncate">{{item.Description}}...</v-list-tile-sub-title>
-                    <v-list-tile-sub-title v-else class="text-truncate">{{item.Specialisations}}...</v-list-tile-sub-title>
+                    <v-list-tile-sub-title>{{item.Description}}...</v-list-tile-sub-title>
                   </v-list-tile-content>
                 </v-list-tile>
               </template>
@@ -94,6 +78,7 @@
 
 <script>
   /* eslint-disable no-unused-vars */
+  import firebase from '@/firebase'
   export default {
     name: 'app',
     data () {
@@ -101,87 +86,55 @@
         slider: 1,
         id: null,
         valid: true,
-        selectedLocation: 'Toate locatiile',
         selectedFacilities: null,
         selectedName: null,
         selectedRatings: null,
         selectedSort: 'Fara Sortare',
         selectedFaculties: null,
-        selectedFacultyName: null
+        selectedFacultyName: null,
+        employersDetails: [],
+        employerName: [],
+        employersKeys: [],
+        employers: []
       }
     },
     computed: {
-      // return jobs names
-      jobName () {
-        var jobName = []
-        var jobKeys = Object.keys(this.$store.getters.jobs)
-        jobKeys.forEach(job => {
-          jobName.push(this.$store.getters.jobs[job].Name)
-        })
-        return jobName
-      },
-      // return universities locations
-      jobLocations () {
-        var jobLocation = ['Toate locatiile']
-        var jobKeys = Object.keys(this.$store.getters.jobs)
-        jobKeys.forEach(job => {
-          jobLocation.push(this.$store.getters.jobs[job].Location)
-        })
-        return jobLocation
-      },
-      // FILTERS
       dataFilter () {
         var filteredData
-        var jobs = []
-        var jobsKeys = Object.keys(this.$store.getters.jobs)
-        jobsKeys.forEach(job => {
-          jobs.push(this.$store.getters.jobs[job])
-        })
-        console.log(jobs)
-        console.log(this.$store.getters.jobs)
-        filteredData = jobs.filter(job => {
-          console.log(jobs[job])
+        filteredData = this.employers.filter(employer => {
           // let matchingFacilities = true
-          let matchingLocation = true
           let matchingName = true
           // let matchingRatings = true
-          // filter location
-          matchingLocation = this.selectedLocation ? (this.selectedLocation === job.Location || this.selectedLocation === 'Toate locatiile') : true
           // filter name
-          matchingName = this.selectedName ? job.Name.toLowerCase().includes(this.selectedName.toLowerCase()) : true
-          // filter rating
-          // if (this.selectedRatings) {
-          //   if (this.selectedRatings.length > 0) {
-          //     matchingRatings = this.selectedRatings ? this.selectedRatings.includes(Math.round(job.Rating).toString()) : true
-          //   } else {
-          //     matchingRatings = true
-          //   }
-          // }
+          matchingName = this.selectedName ? employer.Name.toLowerCase().includes(this.selectedName.toLowerCase()) : true
           // filter facilities
           // if (this.selectedFacilities) {
-          //   if (job.Facilities) {
-          //     matchingFacilities = this.selectedFacilities ? job.Facilities.filter(elem => {
+          //   if (employer.Facilities) {
+          //     matchingFacilities = this.selectedFacilities ? employer.Facilities.filter(elem => {
           //       return this.selectedFacilities.indexOf(elem) > -1
           //     }).length === this.selectedFacilities.length : true
           //   } else {
           //     matchingFacilities = false
           //   }
           // }
-          return matchingLocation & matchingName
+          return matchingName
         })
-        // filter sort by ratings
-        // switch (this.selectedSort) {
-        //   case 'Crescator': filteredData.sort((a, b) => {
-        //     return a.Rating - b.Rating
-        //   })
-        //     break
-        //   case 'Descrescator': filteredData.sort((a, b) => {
-        //     return b.Rating - a.Rating
-        //   })
-        //     break
-        // }
         return filteredData
       }
+    },
+    created () {
+      firebase.database().ref('Employers')
+        .once('value', snap => {
+          const myObj = snap.val()
+          this.employersDetails = myObj
+          this.employerKeys = Object.keys(this.employersDetails)
+          this.employerKeys.forEach(employer => {
+            this.employerName.push(this.employersDetails[employer].Name)
+            this.employers.push(this.employersDetails[employer])
+          })
+        }, function (error) {
+          console.log('Error: ' + error.message)
+        })
     }
   }
 </script>

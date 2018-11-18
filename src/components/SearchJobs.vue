@@ -104,22 +104,17 @@
         selectedSort: 'Fara Sortare',
         selectedFaculties: null,
         selectedFacultyName: null,
-        jobsDetails: null,
+        jobsDetails: [],
         jobName: [],
-        jobLocation: ['Toate locatiile']
+        jobLocation: ['Toate locatiile'],
+        jobsKeys: [],
+        jobs: []
       }
     },
     computed: {
       dataFilter () {
         var filteredData
-        var jobs = []
-        var jobsKeys = Object.keys(this.jobsDetails)
-        jobsKeys.forEach(job => {
-          jobs.push(this.jobsDetails[job])
-        })
-        console.log(jobs)
-        filteredData = jobs.filter(job => {
-          console.log(jobs[job])
+        filteredData = this.jobs.filter(job => {
           // let matchingFacilities = true
           let matchingLocation = true
           let matchingName = true
@@ -128,14 +123,6 @@
           matchingLocation = this.selectedLocation ? (this.selectedLocation === job.Location || this.selectedLocation === 'Toate locatiile') : true
           // filter name
           matchingName = this.selectedName ? job.Name.toLowerCase().includes(this.selectedName.toLowerCase()) : true
-          // filter rating
-          // if (this.selectedRatings) {
-          //   if (this.selectedRatings.length > 0) {
-          //     matchingRatings = this.selectedRatings ? this.selectedRatings.includes(Math.round(job.Rating).toString()) : true
-          //   } else {
-          //     matchingRatings = true
-          //   }
-          // }
           // filter facilities
           // if (this.selectedFacilities) {
           //   if (job.Facilities) {
@@ -148,38 +135,23 @@
           // }
           return matchingLocation & matchingName
         })
-        // filter sort by ratings
-        // switch (this.selectedSort) {
-        //   case 'Crescator': filteredData.sort((a, b) => {
-        //     return a.Rating - b.Rating
-        //   })
-        //     break
-        //   case 'Descrescator': filteredData.sort((a, b) => {
-        //     return b.Rating - a.Rating
-        //   })
-        //     break
-        // }
         return filteredData
       }
     },
-    methods: {
-      jobs () {
-        firebase.database().ref('Jobs')
-        .on('value', snap => {
+    created () {
+      firebase.database().ref('Jobs')
+        .once('value', snap => {
           const myObj = snap.val()
           this.jobsDetails = myObj
-          var jobKeys = Object.keys(this.jobsDetails)
-          jobKeys.forEach(job => {
+          this.jobKeys = Object.keys(this.jobsDetails)
+          this.jobKeys.forEach(job => {
             this.jobName.push(this.jobsDetails[job].Name)
             this.jobLocation.push(this.jobsDetails[job].Location)
+            this.jobs.push(this.jobsDetails[job])
           })
         }, function (error) {
           console.log('Error: ' + error.message)
         })
-      }
-    },
-    created () {
-      this.jobs()
     }
   }
 </script>
