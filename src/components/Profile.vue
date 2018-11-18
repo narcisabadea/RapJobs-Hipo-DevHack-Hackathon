@@ -5,7 +5,7 @@
           <v-layout>
             <v-flex>
               <v-card>
-                <img height="200">
+                <img :src="Image" height="200">
                 <input type="file" accept="image/*" style="display:none" ref="pictureInput" @change="pictureSelect">
                 <v-btn
                   :loading="loading"
@@ -46,6 +46,24 @@
             <v-card-title class="headline grey lighten-2">
               Add a new email adress
             </v-card-title>
+              <v-card-text>
+              <v-text-field
+                prepend-icon="email"
+                v-model="email3"
+                label="Current email adress">
+                  New email adress
+              </v-text-field>
+            </v-card-text>
+            <v-card-text>
+              <v-text-field
+                prepend-icon="email"
+                v-model="password3"
+                label="Password"
+                :append-icon="show3 ? 'visibility_off' : 'visibility'"
+                :type="show3 ? 'text' : 'password'"
+                @click:append="show3 = !show3">
+              </v-text-field>
+            </v-card-text>
             <v-card-text>
               <v-text-field
                 prepend-icon="email"
@@ -130,10 +148,13 @@ export default {
   data () {
     return {
       password: '',
+      password3: '',
       email: '',
       email2: '',
+      email3: '',
       show1: '',
       show2: '',
+      show3: '',
       name: '',
       surname: '',
       e1: true,
@@ -164,7 +185,6 @@ export default {
     }
   },
   computed: {
-   
     userdetails () {
       return this.$store.getters.userdetails
     },
@@ -174,7 +194,6 @@ export default {
     getuserdetails () {
       console.log("1231",this.keysUsers.indexOf(this.user))
       const x = this.keysUsers.indexOf(this.user.uid)
-      
       const userdet = this.userdetails[x]
       return userdet
     }
@@ -186,7 +205,6 @@ export default {
     user () {
       firebase.database().ref('Employee/')
         .on('value', snap => {
-          console.log(snap.val())
           const myObj = snap.val()
           const x= firebase.auth().currentUser
           console.log(myObj[x.uid])
@@ -194,10 +212,12 @@ export default {
           console.log(myObj[x.uid].Surname)
          this.name = myObj[x.uid].Name
          this.surname = myObj[x.uid].Surname
+         this.Image=myObj[x.uid].Image
           console.log(this.name)
         })
     },
     updateEmail () {
+      this.$store.dispatch('signIn', {email: this.email3, password: this.password3})
       this.dialogEmail = false
       var email = document.getElementById('email').value
       firebase.auth().currentUser.updateEmail(email).then(function () {
@@ -224,16 +244,20 @@ export default {
     },
     pictureSelect (payload) {
       const selectedFile = payload.target.files[0]
-      const filesName = this.user.uid
+      const filesName = firebase.auth().currentUser.uid
+
       const fileReader = new FileReader()
       fileReader.addEventListener('load', () => {
         this.ImageUrl = fileReader.result
       })
       fileReader.readAsDataURL(selectedFile)
       this.ImageUrl = selectedFile
+      console.log(this.ImageUrl)
       const storageRef = firebase.storage().ref('ProfilePictures/' + filesName)
+      console.log(filesName)
       console.log(storageRef)
       const uploadTask = storageRef.put(selectedFile)
+      console.log("console.log(storageRef)",storageRef)
       uploadTask.on('state_changed', snapshot => {
         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         console.log('Upload is ' + progress + '% done')
@@ -241,12 +265,15 @@ export default {
         console.log(error)
       }, () => {
         console.log('succes')
-        var downloadURL = uploadTask.snapshot.downloadURL
-        console.log('Done. Enjoy', downloadURL)
-        this.Image = downloadURL
-        firebase.database().ref('ProfilePictures/' + this.user.uid).update({
+        var downloadURL = uploadTask.snapshot.ref.getDownloadURL()
+        .then(function(downloadURL) {
+          firebase.database().ref('Employee/' + firebase.auth().currentUser.uid).update({
           Image: downloadURL
         })
+        console.log('File available at', downloadURL)
+        })
+        this.Image = downloadURL
+        
       })
     }
   },
@@ -254,6 +281,5 @@ export default {
     this.user()
     console.log( this.user())
     this.$store.dispatch('getUserData')
-    
 }}
 </script>

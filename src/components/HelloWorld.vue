@@ -1,25 +1,79 @@
 <template>
-  <v-container fluid>
-    <v-slide-y-transition mode="out-in">
-      <v-layout column align-center>
-        <img src="@/assets/logo.png" alt="Vuetify.js" class="mb-5">
-        <blockquote>
-          &#8220;First, solve the problem. Then, write the code.&#8221;
-          <footer>
-            <small>
-              <em>&mdash;John Johnson</em>
-            </small>
-          </footer>
-        </blockquote>
-      </v-layout>
-    </v-slide-y-transition>
+  <v-container>
+    <v-layout align-center justify-space-around row>
+      <!-- buttons -->
+      <p>
+        <v-btn to="/SearchEmployer">Search employers</v-btn>
+        <v-btn to="SearchJobs">Search jobs</v-btn>
+      </p>
+      <!-- employers +- 3 open jobs now -->
+      <v-flex xs6>
+        <v-card>
+          <v-card-title>
+            <v-icon style="color: #f86c5c;">
+              work
+            </v-icon>
+            Employers
+          </v-card-title>
+          <v-card-text>
+            <div id="piechart1"></div>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+
+    </v-layout>
   </v-container>
 </template>
 
 <script>
-/* eslint-disable */
+  /* eslint-disable no-unused-vars */
+  import firebase from '@/firebase'
+  export default {
+    name: 'app',
+    data () {
+      return {
+      }
+    },
+    computed: {
+    },
+    mounted () {
+      this.piechart1()
+    },
+    methods: {
+      piechart1 () {
+        var test3yes = 0
+        var test3no = 0
+        firebase.database().ref('Employer')
+          .on('value', snap => {
+            var myObj = snap.val()
+            Object.keys(myObj).forEach(key => {
+              if (myObj[key].Jobs.length > 2) {
+                test3yes = parseInt(test3yes) + parseInt(1)
+              } else {
+                test3no = parseInt(test3no) + parseInt(1)
+              }
+            })
+          }, function (error) {
+            console.log('Error: ' + error.message)
+          })
+        var colors = ['#9c5463', '#7b4c67', '#c86060', '#5e4469', '#7f4c66', '#b25a62']
+        window.google.charts.load('visualization', '1.0',
+          { packages:
+          ['corechart', 'bar', 'table'],
+            callback: () => {
+              var chart = new window.google.visualization.PieChart(document.getElementById('piechart1'))
+              chart.draw(window.google.visualization.arrayToDataTable([
+                ['Tip', 'Numar'],
+                ['+3 jobs', test3yes],
+                ['-3 jobs', test3no]
+              ]), {
+                is3D: false, colors: ['#f86c5c', colors[Math.floor(Math.random() * colors.length)]]
+              })
+            }})
+      }
+    }
+  }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 </style>

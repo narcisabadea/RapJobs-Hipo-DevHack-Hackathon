@@ -26,6 +26,16 @@
                 </v-autocomplete>
               </v-flex>
             </v-layout>
+            <v-layout row wrap>
+              <v-flex xs12 sm12>
+                <v-autocomplete
+                  :items="jobDomain"
+                  label="Domain"
+                  v-model="selectedDomain"
+                >
+                </v-autocomplete>
+              </v-flex>
+            </v-layout>
             <!-- SELECT SORT BY RATING -->
             <!-- <v-layout row wrap>
               <v-flex xs12 sm12>
@@ -37,17 +47,17 @@
                 </v-select>
               </v-flex>
             </v-layout> -->
-            <!-- SELECT FACILITIES -->
-            <!-- <v-layout row wrap>
+            <!-- SELECT Benefits -->
+            <v-layout row wrap>
               <v-flex xs12 sm12>
                 <v-select
-                  :items="facilities"
-                  label="Facilitati"
-                  v-model="selectedFacilities"
+                  :items="Benefits"
+                  label="Benefits"
+                  v-model="selectedBenefits"
                   multiple>
                 </v-select>
               </v-flex>
-            </v-layout> -->
+            </v-layout>
             <!-- SELECT RATINGS -->
             <!-- <v-layout row wrap>
               <v-flex xs12 sm12>
@@ -97,8 +107,9 @@
         slider: 1,
         id: null,
         valid: true,
-        selectedLocation: 'Toate locatiile',
-        selectedFacilities: null,
+        selectedLocation: 'All locations',
+        selectedDomain: 'All domains',
+        selectedBenefits: null,
         selectedName: null,
         selectedRatings: null,
         selectedSort: 'Fara Sortare',
@@ -106,34 +117,39 @@
         selectedFacultyName: null,
         jobsDetails: [],
         jobName: [],
-        jobLocation: ['Toate locatiile'],
+        jobLocation: ['All locations'],
+        jobDomain: ['All domains'],
         jobsKeys: [],
-        jobs: []
+        jobs: [],
+        Benefits: []
       }
     },
     computed: {
       dataFilter () {
         var filteredData
         filteredData = this.jobs.filter(job => {
-          // let matchingFacilities = true
+          let matchingBenefits = true
           let matchingLocation = true
           let matchingName = true
+          let matchingDomain = true
           // let matchingRatings = true
           // filter location
-          matchingLocation = this.selectedLocation ? (this.selectedLocation === job.Location || this.selectedLocation === 'Toate locatiile') : true
+          matchingLocation = this.selectedLocation ? (this.selectedLocation === job.Location || this.selectedLocation === 'All locations') : true
           // filter name
           matchingName = this.selectedName ? job.Name.toLowerCase().includes(this.selectedName.toLowerCase()) : true
-          // filter facilities
-          // if (this.selectedFacilities) {
-          //   if (job.Facilities) {
-          //     matchingFacilities = this.selectedFacilities ? job.Facilities.filter(elem => {
-          //       return this.selectedFacilities.indexOf(elem) > -1
-          //     }).length === this.selectedFacilities.length : true
-          //   } else {
-          //     matchingFacilities = false
-          //   }
-          // }
-          return matchingLocation & matchingName
+          // filter Benefits
+          if (this.selectedBenefits) {
+            if (job.Benefits) {
+              var Benefitscompany = job.Benefits.split(',')
+              matchingBenefits = this.selectedBenefits ? Benefitscompany.filter(elem => {
+                return this.selectedBenefits.indexOf(elem) > -1
+              }).length === this.selectedBenefits.length : true
+            } else {
+              matchingBenefits = false
+            }
+          }
+          matchingDomain = this.selectedDomain ? (this.selectedDomain === job.Domain || this.selectedDomain === 'All domains') : true
+          return matchingLocation & matchingName & matchingBenefits & matchingDomain
         })
         return filteredData
       }
@@ -148,6 +164,11 @@
             this.jobName.push(this.jobsDetails[job].Name)
             this.jobLocation.push(this.jobsDetails[job].Location)
             this.jobs.push(this.jobsDetails[job])
+            var Benefitscompany = this.jobsDetails[job].Benefits.split(',')
+            Benefitscompany.forEach(item => {
+              this.Benefits.push(item)
+            })
+            this.jobDomain.push(this.jobsDetails[job].Domain)
           })
         }, function (error) {
           console.log('Error: ' + error.message)
