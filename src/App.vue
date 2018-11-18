@@ -5,13 +5,9 @@
       :clipped-left="true"
       dark color="light-blue lighten-1"
     >
-<<<<<<< HEAD
+    <router-link :to="'/'">
       <v-toolbar-title class="white--text">Rapjobs</v-toolbar-title>
-=======
-      <router-link :to="'/'">
-        <v-toolbar-title class="white--text">Titlu :)</v-toolbar-title>
-      </router-link>
->>>>>>> e0f8c6ce77981eb00a32d5de02e7839f2f58183a
+    </router-link>
       <v-spacer></v-spacer>
       <v-menu offset-y v-show="userIsAuthenticated">
         <v-btn
@@ -319,3 +315,9 @@ export default {
    }
 }
 </script>
+
+<style>
+a {
+  text-decoration: none;
+}
+</style>
