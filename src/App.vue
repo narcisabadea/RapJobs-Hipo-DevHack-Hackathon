@@ -246,75 +246,64 @@ export default {
     // ADD EMPLOYER
     // firebase.database().ref('Employer')
     // .push({
-    //   Adress: 'Brasov street no.15, Bucharest',
-    //   Industry: 'Retail',
+    //   Adress: 'Sebastian street no. 20, Bucharest',
+    //   Industry: 'Customer Suppoert - Client Service',
     //   Jobs: {
-    //     id: '-LRY73GIBoogXFEebMec'
+    //     id: ''
     //   },
     //   Management: {
     //     1: {
-    //       Name: 'Frans W. H. Muller',
-    //       JobFunction: 'Chairman & CEO'
-    //     },
-    //     2: {
-    //       Name: 'Ahold Delhaize',
-    //       JobFunction: 'Chief Operating Officer'
+    //       Name: 'Daniel Julien',
+    //       JobFunction: 'Executive Chairman of the Board and Group Chief Executive Officer'
     //     }
     //   },
-    //   Description: 'AT DELHAIZE AMERICA, DIVERSITY AND INCLUSION IS IMPORTANT TO ALL ASPECTS OF OUR BUSINESS, INCLUDING WORKPLACE, MARKETPLACE, SUPPLIERS AND COMMUNITIES. A DIVERSE WORKFORCE MAKES US A BETTER COMPANY AND IS ESSENTIAL TO OUR CONTINUED GROWTH.',
-    //   Name: 'Food Lion',
-    //   Values: 'At Food Lion, Associates are the most important assets to our organization. We want associates to have meaningful careers full of variety and challenges. Each associate contributes to the overall success of Food Lion, and in return, we strive to provide all associates with a fulfilling work experience and reward performance and commitment.',
-    //   Website: 'https://www.foodlion.com'
+    //   Description: 'The company specializes in outsourced omnichannel customer experience management, also known as Business Process Outsourcing (BPO).',
+    //   Name: 'Teleperformance Greece',
+    //   Values: '',
+    //   Website: 'https://www.teleperformance.com'
     // })
-    // ADD JOBS
+    //ADD JOBS
     // firebase.database().ref('Jobs')
     //   .push({
-    //     Benefits: 'Flexible hours, Prestigious clients, Company retreats',
-    //     Description: 'We are looking for an ambitious, innovative and flexible person who wants to become our colleague on the short or long term.',
+    //     Benefits: 'Prestigious clients',
+    //     Description: 'We are looking for an ambitious person who wants to become our colleague on the short or long term.',
     //     EmployerID: '-LRY73GIBoogXFEebMec',
-    //     Name: 'Sales Assistant',
+    //     Name: 'Lightroom/Photoshop Editor',
     //     Other: '',
-    //     RecruitmentProcess: 'Verbal interview',
+    //     RecruitmentProcess: 'Tehnical interview',
     //     Requirements: {
-    //       Sales: 'true',
-    //       CustomerSupport: 'true'
+    //       Creativity: 'true',
+    //       AdobeSuite: 'true'
     //     },
-    //     Salary: 700,
-    //     ScheduleStart: 7,
-    //     Domain: 'Retail',
+    //     Salary: 100,
+    //     ScheduleStart: 12,
+    //     Domain: 'eCommerce',
     //     JobType: 'full-time',
-    //     Location: 'Cluj Napoca',
-    //     ScheduleEnd: 15,
-    //     Tag: 'Retail',
+    //     Location: 'Bucharest',
+    //     ScheduleEnd: 20,
+    //     Tag: 'Marketing',
     //     Team: {
-    //       1: {
-    //         Name: 'Andrei',
-    //         JobFunction: 'Head of Retail'
-    //       },
-    //       2: {
-    //         Name: 'Mircea',
-    //         JobFunction: 'Supervisor Retail'
-    //       }
+        
     //     },
-    //     Trainings: 'Training Retail',
-    //     Responsabilities: 'Interact with the clients to find their needs and offer them the best solutions and alternatives to them.'
+    //     Trainings: 'Design Training',
+    //     Responsabilities: 'Create creative content, visually attractive and inovative.'
     //   })
 
+    // // ADD RATINGS
+    // // firebase.database().ref('Ratings/' + '-LRY7R2ae7mn0MzH06S8')
+    // //   .push({
+    // //       UserID: 'aLfaMJxyqGOtLq0cWv6wlMZWbNk2',
+    // //       Rating: '1',
+    // //       Comment: 'They refused to hire me, stating that i was overqualified for the job.'
+    // //   })
+    // //
     // ADD RATINGS
-    // firebase.database().ref('Ratings/' + '-LRY7R2ae7mn0MzH06S8')
-    //   .push({
-    //       UserID: 'aLfaMJxyqGOtLq0cWv6wlMZWbNk2',
-    //       Rating: '1',
-    //       Comment: 'They refused to hire me, stating that i was overqualified for the job.'
-    //   })
-    //
-    // ADD RATINGS
-    // firebase.database().ref('Ratings/' + '-LRXzNWrOhk8SFAjAAvK')
-    //   .push({
-    //       UserID: 'uB83DFQfw0cKp2dOghgesIOesMB3',
-    //       Rating: '5',
-    //       Comment: 'The best team i have ever met, they are my family and i love them all. Here i evolved not only education wise but also as a human!'
-    //   })
+    firebase.database().ref('Ratings/' + '-LRY9BS9vMehcITbDrkR')
+      .push({
+          UserID: 'Npx44iPtvpM6TvDVIJsmmCtERxe2',
+          Rating: '1',
+          Comment: 'Salary not paid on time'
+      })
    }
 }
 </script>
