@@ -156,7 +156,7 @@ export default new Vuex.Store({
         },
         setTestResult({ commit }, payload) {
             firebase.database().ref('Employee/' + this.state.user.uid).update({ Test: payload })
-            commit('getTestResult', ifTest)
+            commit('getTestResult', payload)
         }
     },
     getters: {
