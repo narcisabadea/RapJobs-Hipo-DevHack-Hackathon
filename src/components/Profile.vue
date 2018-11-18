@@ -5,7 +5,7 @@
           <v-layout>
             <v-flex>
               <v-card>
-                <img height="200">
+                <img :src="Image" height="200">
                 <input type="file" accept="image/*" style="display:none" ref="pictureInput" @change="pictureSelect">
                 <v-btn
                   :loading="loading"
@@ -186,7 +186,6 @@ export default {
     user () {
       firebase.database().ref('Employee/')
         .on('value', snap => {
-          console.log(snap.val())
           const myObj = snap.val()
           const x= firebase.auth().currentUser
           console.log(myObj[x.uid])
@@ -194,6 +193,7 @@ export default {
           console.log(myObj[x.uid].Surname)
          this.name = myObj[x.uid].Name
          this.surname = myObj[x.uid].Surname
+         this.Image=myObj[x.uid].Image
           console.log(this.name)
         })
     },
@@ -224,16 +224,20 @@ export default {
     },
     pictureSelect (payload) {
       const selectedFile = payload.target.files[0]
-      const filesName = this.user.uid
+      const filesName = firebase.auth().currentUser.uid
+
       const fileReader = new FileReader()
       fileReader.addEventListener('load', () => {
         this.ImageUrl = fileReader.result
       })
       fileReader.readAsDataURL(selectedFile)
       this.ImageUrl = selectedFile
+      console.log(this.ImageUrl)
       const storageRef = firebase.storage().ref('ProfilePictures/' + filesName)
+      console.log(filesName)
       console.log(storageRef)
       const uploadTask = storageRef.put(selectedFile)
+      console.log("console.log(storageRef)",storageRef)
       uploadTask.on('state_changed', snapshot => {
         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         console.log('Upload is ' + progress + '% done')
@@ -241,12 +245,15 @@ export default {
         console.log(error)
       }, () => {
         console.log('succes')
-        var downloadURL = uploadTask.snapshot.downloadURL
-        console.log('Done. Enjoy', downloadURL)
-        this.Image = downloadURL
-        firebase.database().ref('ProfilePictures/' + this.user.uid).update({
+        var downloadURL = uploadTask.snapshot.ref.getDownloadURL()
+        .then(function(downloadURL) {
+          firebase.database().ref('Employee/' + firebase.auth().currentUser.uid).update({
           Image: downloadURL
         })
+        console.log('File available at', downloadURL)
+        })
+        this.Image = downloadURL
+        
       })
     }
   },
