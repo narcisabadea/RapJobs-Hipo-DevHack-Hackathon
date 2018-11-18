@@ -5,7 +5,7 @@
           <v-layout>
             <v-flex>
               <v-card>
-                <img :src="Image" height="200">
+                <img v-if="Image.localeCompare('') === 1" :src="Image" height="200">
                 <input type="file" accept="image/*" style="display:none" ref="pictureInput" @change="pictureSelect">
                 <v-btn
                   :loading="loading"
@@ -218,6 +218,9 @@ export default {
     },
     updateEmail () {
       this.$store.dispatch('signIn', {email: this.email3, password: this.password3})
+      firebase.database().ref('Employee/' + firebase.auth().currentUser.uid).update({
+        Email: this.email3
+      })
       this.dialogEmail = false
       var email = document.getElementById('email').value
       firebase.auth().currentUser.updateEmail(email).then(function () {

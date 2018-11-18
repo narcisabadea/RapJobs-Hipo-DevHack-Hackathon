@@ -29,6 +29,16 @@
             <v-layout row wrap>
               <v-flex xs12 sm12>
                 <v-autocomplete
+                  :items="jobType"
+                  label="Locatie"
+                  v-model="selectedType"
+                >
+                </v-autocomplete>
+              </v-flex>
+            </v-layout>
+            <v-layout row wrap>
+              <v-flex xs12 sm12>
+                <v-autocomplete
                   :items="jobDomain"
                   label="Domain"
                   v-model="selectedDomain"
@@ -36,18 +46,6 @@
                 </v-autocomplete>
               </v-flex>
             </v-layout>
-            <!-- SELECT SORT BY RATING -->
-            <!-- <v-layout row wrap>
-              <v-flex xs12 sm12>
-                <v-select
-                  :items="itemsSort"
-                  label="Sorteaza dupa rating"
-                  v-model="selectedSort"
-                >
-                </v-select>
-              </v-flex>
-            </v-layout> -->
-            <!-- SELECT Benefits -->
             <v-layout row wrap>
               <v-flex xs12 sm12>
                 <v-select
@@ -58,20 +56,16 @@
                 </v-select>
               </v-flex>
             </v-layout>
-            <!-- SELECT RATINGS -->
-            <!-- <v-layout row wrap>
+            <v-layout row wrap>
               <v-flex xs12 sm12>
                 <v-select
-                  :items="ratings"
-                  item-text="text"
-                  item-value="value"
-                  label="Rating"
-                  v-model="selectedRatings"
-                  single-line
+                  :items="Requirements"
+                  label="Requirements"
+                  v-model="selectedRequirements"
                   multiple>
                 </v-select>
               </v-flex>
-            </v-layout> -->
+            </v-layout>
           </v-card-text>
         </v-card>
       </v-flex>
@@ -107,6 +101,7 @@
         slider: 1,
         id: null,
         valid: true,
+        jobType: ['full-time', 'part-time'],
         selectedLocation: 'All locations',
         selectedDomain: 'All domains',
         selectedBenefits: null,
@@ -115,13 +110,16 @@
         selectedSort: 'Fara Sortare',
         selectedFaculties: null,
         selectedFacultyName: null,
+        selectedType: 'full-time',
         jobsDetails: [],
         jobName: [],
         jobLocation: ['All locations'],
         jobDomain: ['All domains'],
         jobsKeys: [],
         jobs: [],
-        Benefits: []
+        Benefits: [],
+        Requirements: [],
+        selectedRequirements: []
       }
     },
     computed: {
@@ -132,6 +130,8 @@
           let matchingLocation = true
           let matchingName = true
           let matchingDomain = true
+          let matchingType = true
+          let matchingRequirements = true
           // let matchingRatings = true
           // filter location
           matchingLocation = this.selectedLocation ? (this.selectedLocation === job.Location || this.selectedLocation === 'All locations') : true
@@ -148,8 +148,19 @@
               matchingBenefits = false
             }
           }
+          if (this.selectedRequirements) {
+            if (job.Requirements) {
+              var Requirementscompany = Object.keys(job.Requirements)
+              matchingRequirements = this.selectedRequirements ? Requirementscompany.filter(elem => {
+                return this.selectedRequirements.indexOf(elem) > -1
+              }).length === this.selectedRequirements.length : true
+            } else {
+              matchingRequirements = false
+            }
+          }
+          matchingType = this.selectedType ? (this.selectedType === job.JobType) : true
           matchingDomain = this.selectedDomain ? (this.selectedDomain === job.Domain || this.selectedDomain === 'All domains') : true
-          return matchingLocation & matchingName & matchingBenefits & matchingDomain
+          return matchingLocation & matchingName & matchingBenefits & matchingDomain & matchingType & matchingRequirements
         })
         return filteredData
       }
@@ -169,6 +180,12 @@
               this.Benefits.push(item)
             })
             this.jobDomain.push(this.jobsDetails[job].Domain)
+            if (this.jobsDetails[job].Requirements) {
+              var Requirements = Object.keys(this.jobsDetails[job].Requirements)
+              Requirements.forEach(item => {
+                this.Requirements.push(item)
+              })
+            }
           })
         }, function (error) {
           console.log('Error: ' + error.message)
