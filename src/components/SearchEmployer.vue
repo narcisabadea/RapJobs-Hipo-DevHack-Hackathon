@@ -62,10 +62,12 @@
               <template v-for="(item, index) in dataFilter">
                 <v-list-tile
                   :key="index">
+                  <router-link :to="{ name: 'Employer', params: { id: index }}" tag="li" style="cursor:pointer">
                   <v-list-tile-content>
                     <v-list-tile-title>{{item.Name}} <span style="opacity: 0.3;color:grey">- {{item.Jobs | jobsLength}} </span></v-list-tile-title>
                     <v-list-tile-sub-title class="text-truncate">{{item.Description}}...</v-list-tile-sub-title>
                   </v-list-tile-content>
+                  </router-link>
                 </v-list-tile>
               </template>
             </v-list>
