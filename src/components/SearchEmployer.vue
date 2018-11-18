@@ -63,8 +63,8 @@
                 <v-list-tile
                   :key="index">
                   <v-list-tile-content>
-                    <v-list-tile-title>{{item.Name}} <span style="opacity: 0.3;color:grey">- {{item.Location}} </span></v-list-tile-title>
-                    <v-list-tile-sub-title>{{item.Description}}...</v-list-tile-sub-title>
+                    <v-list-tile-title>{{item.Name}} <span style="opacity: 0.3;color:grey">- {{item.Jobs | jobsLength}} </span></v-list-tile-title>
+                    <v-list-tile-sub-title class="text-truncate">{{item.Description}}...</v-list-tile-sub-title>
                   </v-list-tile-content>
                 </v-list-tile>
               </template>
@@ -98,6 +98,11 @@
         employers: []
       }
     },
+    filters: {
+      jobsLength: value => {
+        return Object.keys(value).length
+      }
+    },
     computed: {
       dataFilter () {
         var filteredData
@@ -123,7 +128,7 @@
       }
     },
     created () {
-      firebase.database().ref('Employers')
+      firebase.database().ref('Employer')
         .once('value', snap => {
           const myObj = snap.val()
           this.employersDetails = myObj
