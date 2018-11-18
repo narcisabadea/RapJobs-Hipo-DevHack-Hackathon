@@ -46,18 +46,6 @@
                 </v-autocomplete>
               </v-flex>
             </v-layout>
-            <!-- SELECT SORT BY RATING -->
-            <!-- <v-layout row wrap>
-              <v-flex xs12 sm12>
-                <v-select
-                  :items="itemsSort"
-                  label="Sorteaza dupa rating"
-                  v-model="selectedSort"
-                >
-                </v-select>
-              </v-flex>
-            </v-layout> -->
-            <!-- SELECT Benefits -->
             <v-layout row wrap>
               <v-flex xs12 sm12>
                 <v-select
@@ -78,20 +66,6 @@
                 </v-select>
               </v-flex>
             </v-layout>
-            <!-- SELECT RATINGS -->
-            <!-- <v-layout row wrap>
-              <v-flex xs12 sm12>
-                <v-select
-                  :items="ratings"
-                  item-text="text"
-                  item-value="value"
-                  label="Rating"
-                  v-model="selectedRatings"
-                  single-line
-                  multiple>
-                </v-select>
-              </v-flex>
-            </v-layout> -->
           </v-card-text>
         </v-card>
       </v-flex>
@@ -176,10 +150,7 @@
           }
           if (this.selectedRequirements) {
             if (job.Requirements) {
-              console.log(job.Requirements)
-              console.log(this.jobsDetails[job].Requirements)
-              var Requirementscompany = Object.keys(this.jobsDetails[job].Requirements)
-              console.log(Requirementscompany)
+              var Requirementscompany = Object.keys(job.Requirements)
               matchingRequirements = this.selectedRequirements ? Requirementscompany.filter(elem => {
                 return this.selectedRequirements.indexOf(elem) > -1
               }).length === this.selectedRequirements.length : true
