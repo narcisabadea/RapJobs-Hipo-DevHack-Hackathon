@@ -144,6 +144,9 @@ export default new Vuex.Store({
   },
   getters: {
     user: state => state.user,
-    userdetails: state => state.userdetails
+    userdetails: state => state.userdetails,
+    jobs: state => state.jobs,
+    employers: state => state.employers,
+    ratings: state => state.ratings
   }
 })
