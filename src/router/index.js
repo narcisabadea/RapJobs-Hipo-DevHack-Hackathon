@@ -8,6 +8,7 @@ import Test from '@/components/Test'
 import SearchJobs from '@/components/SearchJobs'
 import SearchEmployer from '@/components/SearchEmployer'
 import Profile from '@/components/Profile'
+import Map from '@/components/Map'
 
 Vue.use(Router)
 
@@ -42,6 +43,11 @@ export default new Router({
       path: '/profile',
       name: 'profile',
       component: Profile
+    },
+    {
+      path: '/map',
+      name: 'map',
+      component: Map
     }
   ]
 })

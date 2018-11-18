@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-sm>
-        
+
         <v-card>
           <template>
   <v-parallax style=" height: 250px;" src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">
