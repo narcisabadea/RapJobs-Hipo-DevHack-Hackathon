@@ -807,7 +807,3 @@
           }
     }
 </script>
-
-<style scoped>
-
-</style>

@@ -8,11 +8,22 @@
             <v-layout row wrap>
               <v-flex xs12 sm12>
                 <v-text-field
-                  :items="employerName"
+                  :items="jobName"
                   v-model="selectedName"
                   label="Nume"
                   autocomplete
                 ></v-text-field>
+              </v-flex>
+            </v-layout>
+            <!-- SELECT LOCATION -->
+            <v-layout row wrap>
+              <v-flex xs12 sm12>
+                <v-autocomplete
+                  :items="jobLocation"
+                  label="Locatie"
+                  v-model="selectedLocation"
+                >
+                </v-autocomplete>
               </v-flex>
             </v-layout>
             <!-- SELECT SORT BY RATING -->
@@ -86,51 +97,57 @@
         slider: 1,
         id: null,
         valid: true,
+        selectedLocation: 'Toate locatiile',
         selectedFacilities: null,
         selectedName: null,
         selectedRatings: null,
         selectedSort: 'Fara Sortare',
         selectedFaculties: null,
         selectedFacultyName: null,
-        employersDetails: [],
-        employerName: [],
-        employersKeys: [],
-        employers: []
+        jobsDetails: [],
+        jobName: [],
+        jobLocation: ['Toate locatiile'],
+        jobsKeys: [],
+        jobs: []
       }
     },
     computed: {
       dataFilter () {
         var filteredData
-        filteredData = this.employers.filter(employer => {
+        filteredData = this.jobs.filter(job => {
           // let matchingFacilities = true
+          let matchingLocation = true
           let matchingName = true
           // let matchingRatings = true
+          // filter location
+          matchingLocation = this.selectedLocation ? (this.selectedLocation === job.Location || this.selectedLocation === 'Toate locatiile') : true
           // filter name
-          matchingName = this.selectedName ? employer.Name.toLowerCase().includes(this.selectedName.toLowerCase()) : true
+          matchingName = this.selectedName ? job.Name.toLowerCase().includes(this.selectedName.toLowerCase()) : true
           // filter facilities
           // if (this.selectedFacilities) {
-          //   if (employer.Facilities) {
-          //     matchingFacilities = this.selectedFacilities ? employer.Facilities.filter(elem => {
+          //   if (job.Facilities) {
+          //     matchingFacilities = this.selectedFacilities ? job.Facilities.filter(elem => {
           //       return this.selectedFacilities.indexOf(elem) > -1
           //     }).length === this.selectedFacilities.length : true
           //   } else {
           //     matchingFacilities = false
           //   }
           // }
-          return matchingName
+          return matchingLocation & matchingName
         })
         return filteredData
       }
     },
     created () {
-      firebase.database().ref('Employers')
+      firebase.database().ref('Jobs')
         .once('value', snap => {
           const myObj = snap.val()
-          this.employersDetails = myObj
-          this.employerKeys = Object.keys(this.employersDetails)
-          this.employerKeys.forEach(employer => {
-            this.employerName.push(this.employersDetails[employer].Name)
-            this.employers.push(this.employersDetails[employer])
+          this.jobsDetails = myObj
+          this.jobKeys = Object.keys(this.jobsDetails)
+          this.jobKeys.forEach(job => {
+            this.jobName.push(this.jobsDetails[job].Name)
+            this.jobLocation.push(this.jobsDetails[job].Location)
+            this.jobs.push(this.jobsDetails[job])
           })
         }, function (error) {
           console.log('Error: ' + error.message)

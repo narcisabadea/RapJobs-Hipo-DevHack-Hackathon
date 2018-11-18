@@ -1,43 +1,43 @@
 <template>
   <v-app>
-    <v-navigation-drawer
-      persistent
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      v-model="drawer"
-      enable-resize-watcher
-      fixed
-      app
-    >
-      <v-list>
-        <v-list-tile
-          value="true"
-          v-for="(item, i) in items"
-          :key="i"
-        >
-          <v-list-tile-action>
-            <v-icon v-html="item.icon"></v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title v-text="item.title"></v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>
-    </v-navigation-drawer>
     <v-toolbar
       app
       :clipped-left="true"
       dark color="light-blue lighten-1"
     >
+<<<<<<< HEAD
       <v-toolbar-title class="white--text">Rapjobs</v-toolbar-title>
+=======
+      <router-link :to="'/'">
+        <v-toolbar-title class="white--text">Titlu :)</v-toolbar-title>
+      </router-link>
+>>>>>>> e0f8c6ce77981eb00a32d5de02e7839f2f58183a
       <v-spacer></v-spacer>
-      <v-btn flat round @click="(dialogTest = true)"> Take the personality test
+      <v-menu offset-y v-show="userIsAuthenticated">
+        <v-btn
+          flat
+          slot="activator">
+          <v-icon left>account_circle</v-icon> Account
+        </v-btn>
+        <v-list>
+          <v-list-tile>
+            <router-link to="/Profile" tag="li" style="cursor:pointer">
+              <v-list-tile-title> Profile </v-list-tile-title>
+            </router-link>
+          </v-list-tile>
+          <v-list-tile  @click="onSignOut">
+            <router-link to="/" tag="li" style="cursor:pointer">
+              <v-list-tile-title> Sign out </v-list-tile-title>
+            </router-link>
+          </v-list-tile>
+        </v-list>
+      </v-menu>
+
+      <v-btn flat @click="(dialogTest = true)"> Take the personality test
       </v-btn>
-      <v-btn flat round @click="(dialogSignUp = true)"> Sign up
+      <v-btn flat @click="(dialogSignUp = true)" v-if="userIsAuthenticated === false"> Sign up
       </v-btn>
-      <v-btn flat round @click="(dialogSignIn = true)"> Sign in
-      </v-btn>
-      <v-btn flat to="/profile"> Profile
+      <v-btn flat @click="(dialogSignIn = true)" v-if="userIsAuthenticated === false"> Sign in
       </v-btn>
     </v-toolbar>
     <v-content>
@@ -206,6 +206,14 @@ export default {
     },
     comparePasswords () {
       return this.password2 !== this.confirmPassword ? 'Passwords do not match' : ''
+    },
+    onLoad () {
+      if (this.userIsAuthenticated) {
+        this.$router.push('/')
+      }
+    },
+    userIsAuthenticated () {
+      return this.$store.getters.user !== null && this.$store.getters.user !== undefined
     }
   },
   methods: {
@@ -213,14 +221,17 @@ export default {
       this.$store.dispatch('signIn', {email: this.email, password: this.password})
       this.dialogSignIn = false
     },
+    onSignOut () {
+      this.$store.dispatch('signOut')
+    },
     userSignUp () {
       this.$store.dispatch('signUp', {email: this.email1, password: this.password2, name: this.Name, surname: this.Surname})
       this.dialogSignUp = false
     },
     forgotPassword () {
-      const emailprompt = prompt('Introdu adresa de email', '')
+      const emailprompt = prompt('Add your email adress', '')
       firebase.auth().sendPasswordResetEmail(emailprompt).then(function () {
-        window.alert('A fost trimis un email de recuperare a parolei la adresa: ' + emailprompt)
+        window.alert('An email has been sent to: ' + emailprompt)
       }).catch(function (error) {
         window.alert(error.message)
       })
@@ -230,6 +241,9 @@ export default {
   created () {
     this.$store.dispatch('AuthChange')
     this.$store.dispatch('getUserData')
+    this.$store.dispatch('readJobs')
+    this.$store.dispatch('readEmployer')
+    this.$store.dispatch('readRatings')
     // ADD EMPLOYER
     // firebase.database().ref('Employer')
     // .push({
