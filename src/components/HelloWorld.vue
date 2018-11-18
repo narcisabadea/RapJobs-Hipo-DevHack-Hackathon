@@ -4,6 +4,7 @@
       <!-- buttons -->
       <p>
         <v-btn to="/SearchEmployer">Search employers</v-btn>
+        <v-btn to="/Map">See jobs map</v-btn>
         <v-btn to="SearchJobs">Search jobs</v-btn>
       </p>
       <!-- employers +- 3 open jobs now -->
