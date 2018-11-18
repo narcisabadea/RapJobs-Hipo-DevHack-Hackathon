@@ -3,9 +3,10 @@
 </template>
 
 <script>
-  export default {
-    name: 'SearchEmployer'
-  }
+/* eslint-disable */
+    export default {
+        name: "SearchEmployer"
+    }
 </script>
 
 <style scoped>

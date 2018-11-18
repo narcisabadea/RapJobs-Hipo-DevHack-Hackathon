@@ -11,7 +11,10 @@ export default new Vuex.Store({
     },
     user: null,
     error: null,
-    userdetails: {}
+    userdetails: null,
+    jobs: null,
+    employers: null,
+    ratings: null
   },
   mutations: {
     setUser (state, payload) {
@@ -22,6 +25,27 @@ export default new Vuex.Store({
     },
     gotUsers: (state, payload) => {
       state.userdetails.push(payload)
+    },
+    gotUser: (state, payload) => {
+      state.userdetails = payload
+    },
+    emptyJobs: (state) => {
+      state.jobs = []
+    },
+    gotJobs: (state, payload) => {
+      state.jobs = payload
+    },
+    emptyEmployer: (state) => {
+      state.employers = []
+    },
+    gotEmployer: (state, payload) => {
+      state.employers = payload
+    },
+    emptyRating: (state) => {
+      state.ratings = []
+    },
+    gotRating: (state, payload) => {
+      state.ratings = payload
     }
   },
   actions: {
@@ -89,6 +113,36 @@ export default new Vuex.Store({
     },
     userIsAuthenticated () {
       return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+    },
+    readJobs ({commit}) {
+      return firebase.database().ref('Jobs')
+        .on('value', snap => {
+          commit('emptyJobs')
+          const myObj = snap.val()
+          commit('gotJobs', myObj)
+        }, function (error) {
+          console.log('Error: ' + error.message)
+        })
+    },
+    readEmployer ({commit}) {
+      return firebase.database().ref('Employer')
+        .on('value', snap => {
+          commit('emptyEmployer')
+          const myObj = snap.val()
+          commit('gotEmployer', myObj)
+        }, function (error) {
+          console.log('Error: ' + error.message)
+        })
+    },
+    readRatings ({commit}) {
+      return firebase.database().ref('Ratings')
+        .on('value', snap => {
+          commit('emptyRating')
+          const myObj = snap.val()
+          commit('gotRating', myObj)
+        }, function (error) {
+          console.log('Error: ' + error.message)
+        })
     }
   },
   getters: {

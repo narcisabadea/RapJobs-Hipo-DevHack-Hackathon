@@ -20,15 +20,15 @@
                     name="nume"
                     label="Last name"
                     id="nume"
-                    v-model="getuserdetails.Name"
-                  ></v-text-field>
+                    v-model="name">
+                    </v-text-field>
                   <v-spacer></v-spacer>
                   <v-text-field
                     name="prenume"
                     label="First name"
                     id="prenume"
-                    v-model="getuserdetails.Surname"
-                  ></v-text-field>
+                    v-model="surname">
+                    </v-text-field>
                   <v-btn color="primary" flat @click="dialogEmail = true">Change email</v-btn>
                   <v-btn color="primary" flat @click="dialogPassword = true">Change password</v-btn>
                   <v-flex>
@@ -123,6 +123,7 @@ img {
 </style>
 
 <script>
+/* eslint-disable */
 import firebase from '@/firebase'
 export default {
   name: 'Profile',
@@ -133,6 +134,8 @@ export default {
       email2: '',
       show1: '',
       show2: '',
+      name: '',
+      surname: '',
       e1: true,
       oldpass: '',
       password2: '',
@@ -161,9 +164,7 @@ export default {
     }
   },
   computed: {
-    user () {
-      return this.$store.getters.user
-    },
+   
     userdetails () {
       return this.$store.getters.userdetails
     },
@@ -171,7 +172,9 @@ export default {
       return this.password2 !== this.passwordConfirm ? 'Parolele nu coincid' : ''
     },
     getuserdetails () {
+      console.log("1231",this.keysUsers.indexOf(this.user))
       const x = this.keysUsers.indexOf(this.user.uid)
+      
       const userdet = this.userdetails[x]
       return userdet
     }
@@ -180,6 +183,20 @@ export default {
     return this.$store.getters.userdetails
   },
   methods: {
+    user () {
+      firebase.database().ref('Employee/')
+        .on('value', snap => {
+          console.log(snap.val())
+          const myObj = snap.val()
+          const x= firebase.auth().currentUser
+          console.log(myObj[x.uid])
+          console.log(myObj[x.uid].Name)
+          console.log(myObj[x.uid].Surname)
+         this.name = myObj[x.uid].Name
+         this.surname = myObj[x.uid].Surname
+          console.log(this.name)
+        })
+    },
     updateEmail () {
       this.dialogEmail = false
       var email = document.getElementById('email').value
@@ -232,16 +249,11 @@ export default {
         })
       })
     }
-  }
-  // mounted () {
-  //   return firebase.database().ref('Employee/' + this.$store.getters.user)
-  //     .on('value', snap => {
-  //       const myObj = snap.val()
-  //       this.userdet = {
-  //         Name: myObj.Name,
-  //         Surname: myObj.Surname
-  //       }
-  //     })
-  // }
-}
+  },
+  created () {
+    this.user()
+    console.log( this.user())
+    this.$store.dispatch('getUserData')
+    
+}}
 </script>
