@@ -5,7 +5,7 @@ import Employee from '@/components/Employee'
 import Employer from '@/components/Employer'
 import Test from '@/components/Test'
 import SearchJobs from '@/components/SearchJobs'
-import SearchEmployee from '@/components/SearchEmployee'
+import SearchEmployer from '@/components/SearchEmployer'
 import Profile from '@/components/Profile'
 
 Vue.use(Router)
@@ -33,9 +33,9 @@ export default new Router({
       name: 'SearchJobs',
       component: SearchJobs
     }, {
-      path: '/searchEmployee',
-      name: 'SearchEmployee',
-      component: SearchEmployee
+      path: '/searchEmployer',
+      name: 'SearchEmployer',
+      component: SearchEmployer
     },
     {
       path: '/profile',
