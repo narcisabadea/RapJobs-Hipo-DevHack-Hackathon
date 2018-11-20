@@ -10,11 +10,26 @@
                 <v-text-field
                   :items="employerName"
                   v-model="selectedName"
-                  label="Nume"
+                  label="Name"
                   autocomplete
                 ></v-text-field>
               </v-flex>
             </v-layout>
+            <v-layout row wrap>
+              <v-flex xs12 sm12>
+                <v-text-field
+                  :items="employerAddress"
+                  v-model="selectedAddress"
+                  label="Address"
+                  autocomplete
+                ></v-text-field>
+              </v-flex>
+            </v-layout>
+            <v-autocomplete
+              label="Industry"
+              :items="employerIndustry"
+              v-model="industry">
+            </v-autocomplete>
             <!-- SELECT SORT BY RATING -->
             <!-- <v-layout row wrap>
               <v-flex xs12 sm12>
@@ -92,12 +107,14 @@
         selectedName: null,
         selectedRatings: null,
         selectedSort: 'Fara Sortare',
-        selectedFaculties: null,
-        selectedFacultyName: null,
+        selectedAddress: null,
         employersDetails: [],
         employerName: [],
         employersKeys: [],
-        employers: []
+        employers: [],
+        employerAddress: ['All locations'],
+        employerIndustry: ['All industries'],
+        industry: null
       }
     },
     filters: {
@@ -111,9 +128,13 @@
         filteredData = this.employers.filter(employer => {
           // let matchingFacilities = true
           let matchingName = true
+          let matchingAddress = true
+          let matchingIndustry = true
           // let matchingRatings = true
           // filter name
           matchingName = this.selectedName ? employer.Name.toLowerCase().includes(this.selectedName.toLowerCase()) : true
+          matchingAddress = this.selectedAddress ? employer.Adress.toLowerCase().includes(this.selectedAddress.toLowerCase()) : true
+          matchingIndustry = this.industry ? (employer.Industry.toLowerCase().includes(this.industry.toLowerCase()) || (this.industry === 'All industries')) : true
           // filter facilities
           // if (this.selectedFacilities) {
           //   if (employer.Facilities) {
@@ -124,7 +145,7 @@
           //     matchingFacilities = false
           //   }
           // }
-          return matchingName
+          return matchingName & matchingAddress & matchingIndustry
         })
         return filteredData
       }
@@ -138,6 +159,8 @@
           this.employerKeys.forEach(employer => {
             this.employerName.push(this.employersDetails[employer].Name)
             this.employers.push(this.employersDetails[employer])
+            this.employerAddress.push(this.employersDetails[employer].Adress)
+            this.employerIndustry.push(this.employersDetails[employer].Industry)
           })
         }, function (error) {
           console.log('Error: ' + error.message)

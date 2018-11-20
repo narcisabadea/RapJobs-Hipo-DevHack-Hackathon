@@ -689,7 +689,7 @@
         </v-flex>
         </v-layout>
     </v-container>
-    <v-btn color="primary" to= "/"type="submit" @click="dialogTest=false">Exit</v-btn>
+    <v-btn color="primary" to= "/" type="submit" @click="dialogTest=false">Exit</v-btn>
     <v-btn color="primary" type="submit" @click="rezTest">Next</v-btn>
     </v-layout>
     <v-dialog v-model="dialogRezTest" max-width="50%" persistent>
@@ -704,10 +704,13 @@
               :value="true"
               type="success"
             >
-              <h3></h3>
+              <b>Temperament type: </b>{{ resultTest.Nume }}<br>
+              <b>Motive: </b>{{ resultTest.Motive }}<br>
+              <b>Needs: </b>{{ resultTest.Needs }}<br>
+              <b>Wants: </b>{{ resultTest.Wants }}
             </v-alert>
             </v-card-text>
-              <v-btn color="primary" to="/" type="submit" @click="dialogRezTest=false" >Submit</v-btn>
+              <v-btn color="primary" to="/" type="submit" @click="submit" >Submit</v-btn>
           </v-card>
         </v-flex>
       </v-layout>
@@ -717,10 +720,17 @@
 
 <script>
 /* eslint-disable */
+import firebase from '@/firebase'
     export default {
         name: "Test",
           data () {
             return {
+                resultTest: {
+                    Motive: '',
+                    Needs: '',
+                    Wants: '',
+                    Nume: ''
+                },
                 C11: null,
                 C12: null,
                 C13: null,
@@ -793,9 +803,18 @@
                 C182: null,
                 C183: null,
                 C184: null,
-                dialogRezTest: false
+                dialogRezTest: false,
+                x: null,
+                rasp1: null,
+                rasp2: null,
+                rasp3: null,
+                rasp4: null
             }
-          
+          },
+          computed: {
+              user () {
+                  this.$store.getters.user.uid
+              }
           },
           methods: {
             rezTest () {
@@ -803,7 +822,58 @@
                 var r2 = parseInt(this.C12)+parseInt(this.C22)+parseInt(this.C32)+parseInt(this.C42)+parseInt(this.C52)+parseInt(this.C62)+parseInt(this.C72)+parseInt(this.C82)+parseInt(this.C92)+parseInt(this.C102)+parseInt(this.C112)+parseInt(this.C122)+parseInt(this.C132)+parseInt(this.C142)+parseInt(this.C152)+parseInt(this.C162)+parseInt(this.C172)+parseInt(this.C182)
                 var r3 = parseInt(this.C13)+parseInt(this.C23)+parseInt(this.C33)+parseInt(this.C43)+parseInt(this.C53)+parseInt(this.C63)+parseInt(this.C73)+parseInt(this.C83)+parseInt(this.C93)+parseInt(this.C103)+parseInt(this.C113)+parseInt(this.C123)+parseInt(this.C133)+parseInt(this.C143)+parseInt(this.C153)+parseInt(this.C163)+parseInt(this.C173)+parseInt(this.C183)
                 var r4 = parseInt(this.C14)+parseInt(this.C24)+parseInt(this.C34)+parseInt(this.C44)+parseInt(this.C54)+parseInt(this.C64)+parseInt(this.C74)+parseInt(this.C84)+parseInt(this.C94)+parseInt(this.C104)+parseInt(this.C114)+parseInt(this.C124)+parseInt(this.C134)+parseInt(this.C144)+parseInt(this.C154)+parseInt(this.C164)+parseInt(this.C174)+parseInt(this.C184)
+                var rezultat = Math.max(r1,r2,r3,r4)
+
+                switch(rezultat)
+                {
+                    case r1: 
+                    this.x = 1
+                    firebase.database().ref('PersonalityTest/' + this.x)
+                        .on('value', snap => {
+                            console.log(snap.val())
+                            const myObj = snap.val()
+                            this.resultTest = snap.val()
+                        }, function(error) {
+                            console.log('Error: ' + error.message)
+                        })
+                        break;
+                    case r2: 
+                    this.x = 2
+                    firebase.database().ref('PersonalityTest/' + this.x)
+                        .on('value', snap => {
+                            console.log(snap.val())
+                            const myObj = snap.val()
+                        }, function(error) {
+                            console.log('Error: ' + error.message)
+                        })
+                             break;
+                    case r3: 
+                    this.x = 3
+                    firebase.database().ref('PersonalityTest/' + this.x)
+                        .on('value', snap => {
+                            console.log(snap.val())
+                            const myObj = snap.val()
+                        }, function(error) {
+                            console.log('Error: ' + error.message)
+                        })
+                             break;
+                    case r4: 
+                    this.x = 4
+                    firebase.database().ref('PersonalityTest/' + this.x)
+                        .on('value', snap => {
+                            console.log(snap.val())
+                            const myObj = snap.val()
+                        }, function(error) {
+                            console.log('Error: ' + error.message)
+                        })
+                             break;
                 }
+                this.dialogRezTest=true
+            },
+            submit () {
+                this.$store.dispatch('setTestResult', this.x)
+                this.dialogRezTest=false
+            }
           }
     }
 </script>
