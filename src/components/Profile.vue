@@ -5,7 +5,7 @@
           <v-layout>
             <v-flex>
               <v-card>
-                <img v-if="Image.localeCompare('') === 1" :src="Image" height="200">
+                <img :src="Image" height="200">
                 <input type="file" accept="image/*" style="display:none" ref="pictureInput" @change="pictureSelect">
                 <v-btn
                   :loading="loading"
