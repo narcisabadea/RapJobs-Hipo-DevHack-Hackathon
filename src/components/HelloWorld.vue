@@ -8,26 +8,11 @@
         <v-btn to="SearchJobs">Search jobs</v-btn>
       </p>
       <!-- employers +- 3 open jobs now -->
-      <v-flex xs6>
-        <v-card>
-          <v-card-title>
-            <v-icon style="color: #f86c5c;">
-              work
-            </v-icon>
-            Employers
-          </v-card-title>
-          <v-card-text>
-            <div id="piechart1"></div>
-          </v-card-text>
-        </v-card>
-      </v-flex>
-
     </v-layout>
   </v-container>
 </template>
 
 <script>
-  /* eslint-disable no-unused-vars */
   import firebase from '@/firebase'
   export default {
     name: 'app',
@@ -36,9 +21,6 @@
       }
     },
     computed: {
-    },
-    mounted () {
-      this.piechart1()
     },
     methods: {
       piechart1 () {

@@ -50,6 +50,9 @@ export default new Vuex.Store({
         },
         gotTest: (state, payload) => {
             state.test = payload
+        },
+        getTestResult: (state, payload) => {
+            state.test = payload
         }
     },
     actions: {
@@ -108,6 +111,11 @@ export default new Vuex.Store({
         AuthChange({ commit }) {
             firebase.auth().onAuthStateChanged((user) => {
                 if (user) {
+                    firebase.database().ref('Employee/' + firebase.auth().currentUser.uid)
+                        .on('value', snap => {
+                            const myObj = snap.val()
+                            commit('gotTest', myObj.Test)
+                        })
                     commit('setUser', user)
                 } else {
                     commit('setUser', null)

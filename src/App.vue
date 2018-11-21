@@ -29,7 +29,7 @@
         </v-list>
       </v-menu>
 
-      <v-btn flat round @click="(dialogTest = true)" v-if="ifTest === false"> Take the personality test
+      <v-btn flat round @click="(dialogTest = true)" v-if="(ifTest === false) && (userIsAuthenticated === true)"> Take the personality test
       </v-btn>
       <v-btn flat round @click="(dialogSignUp = true)" v-if="userIsAuthenticated === false"> Sign up
       </v-btn>
@@ -192,6 +192,9 @@ export default {
   computed: {
     user () {
       return this.$store.getters.user
+    },
+    userdetails () {
+      return this.$store.getters.userdetails
     },
     error () {
       return this.$store.getters.error
