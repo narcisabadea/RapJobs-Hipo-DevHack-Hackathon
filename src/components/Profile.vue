@@ -1,7 +1,7 @@
  <template>
    <v-container>
       <v-layout justify-center>
-          <v-flex xs6>
+        <v-flex xs6>
           <v-layout>
             <v-flex>
               <v-card>
@@ -12,7 +12,7 @@
                   @click.native="loader = 'loading'"
                   @click="addPicture"
                   >
-                    Incarca poza
+                    Upload picture
                     <v-icon right dark>cloud_upload</v-icon>
                 </v-btn>
                 <v-card-text>
@@ -32,8 +32,8 @@
                   <v-btn color="primary" flat @click="dialogEmail = true">Change email</v-btn>
                   <v-btn color="primary" flat @click="dialogPassword = true">Change password</v-btn>
                   <v-flex>
-                  <v-btn color="primary">Save</v-btn>
-                  <v-btn flat color="primary" router to = "/">Back</v-btn>
+                    <v-btn color="primary">Save</v-btn>
+                    <v-btn flat color="primary" router to = "/">Back</v-btn>
                   </v-flex>
                 </v-card-text>
               </v-card>
@@ -120,7 +120,7 @@
                 flat
                 @click="updatePassword"
               >
-                Salveaza
+                Save
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -141,7 +141,6 @@ img {
 </style>
 
 <script>
-/* eslint-disable */
 import firebase from '@/firebase'
 export default {
   name: 'Profile',
@@ -192,28 +191,20 @@ export default {
       return this.password2 !== this.passwordConfirm ? 'Parolele nu coincid' : ''
     },
     getuserdetails () {
-      console.log("1231",this.keysUsers.indexOf(this.user))
       const x = this.keysUsers.indexOf(this.user.uid)
       const userdet = this.userdetails[x]
       return userdet
     }
-  },
-  created () {
-    return this.$store.getters.userdetails
   },
   methods: {
     user () {
       firebase.database().ref('Employee/')
         .on('value', snap => {
           const myObj = snap.val()
-          const x= firebase.auth().currentUser
-          console.log(myObj[x.uid])
-          console.log(myObj[x.uid].Name)
-          console.log(myObj[x.uid].Surname)
-         this.name = myObj[x.uid].Name
-         this.surname = myObj[x.uid].Surname
-         this.Image=myObj[x.uid].Image
-          console.log(this.name)
+          const x = firebase.auth().currentUser
+          this.name = myObj[x.uid].Name
+          this.surname = myObj[x.uid].Surname
+          this.Image = myObj[x.uid].Image
         })
     },
     updateEmail () {
@@ -260,7 +251,6 @@ export default {
       console.log(filesName)
       console.log(storageRef)
       const uploadTask = storageRef.put(selectedFile)
-      console.log("console.log(storageRef)",storageRef)
       uploadTask.on('state_changed', snapshot => {
         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
         console.log('Upload is ' + progress + '% done')
@@ -269,20 +259,19 @@ export default {
       }, () => {
         console.log('succes')
         var downloadURL = uploadTask.snapshot.ref.getDownloadURL()
-        .then(function(downloadURL) {
-          firebase.database().ref('Employee/' + firebase.auth().currentUser.uid).update({
-          Image: downloadURL
-        })
-        console.log('File available at', downloadURL)
-        })
+          .then(function (downloadURL) {
+            firebase.database().ref('Employee/' + firebase.auth().currentUser.uid).update({
+              Image: downloadURL
+            })
+            console.log('File available at', downloadURL)
+          })
         this.Image = downloadURL
-        
       })
     }
   },
   created () {
     this.user()
-    console.log( this.user())
     this.$store.dispatch('getUserData')
-}}
+    return this.$store.getters.userdetails
+  }}
 </script>

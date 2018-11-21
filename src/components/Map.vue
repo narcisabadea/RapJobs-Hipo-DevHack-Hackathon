@@ -8,8 +8,6 @@
 </template>
 
 <script>
-  /* eslint-disable */
-  import router from '@/router'
   import firebase from '@/firebase'
   export default {
     name: 'Map',
@@ -36,7 +34,9 @@
               title: employers[key].Name
             })
             var y = keysEmployers.indexOf(key)
+            console.log(y)
             var path = 'Employer'
+            console.log(path)
             var infowindow = new window.google.maps.InfoWindow()
             window.google.maps.event.addListener(marker, 'click', function () {
               var contentString = '<div>' + employers[key].Name + '</div>'

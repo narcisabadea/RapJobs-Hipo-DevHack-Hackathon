@@ -114,7 +114,6 @@ export default new Vuex.Store({
                     firebase.database().ref('Employee/' + firebase.auth().currentUser.uid)
                         .on('value', snap => {
                             const myObj = snap.val()
-                            console.log(myObj)
                             commit('gotTest', myObj.Test)
                         })
                     commit('setUser', user)

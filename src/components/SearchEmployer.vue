@@ -94,7 +94,6 @@
 </template>
 
 <script>
-  /* eslint-disable no-unused-vars */
   import firebase from '@/firebase'
   export default {
     name: 'app',
