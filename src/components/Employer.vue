@@ -2,7 +2,7 @@
   <v-container grid-list-sm>
     <v-card>
       <template>
-        <v-parallax style=" height: 250px;" src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">
+        <v-parallax style=" height: 250px" src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">
           <v-card-title primary-title style=" margin-left: 20px">
             <img src="https://btclub.ro/uploads/media/default/0001/01/3f98b71e128942ac69e33371d7b85ded7d21ee02.jpeg" height="100px">
             <div class="headline">{{ detailsEmployer.Name }}</div>
@@ -11,63 +11,62 @@
           </v-card-title>
         </v-parallax>
       </template>
-      <v-card-title style="padding-top: 50px;" secondary-title>
+      <v-card-title style="padding-top: 50px" secondary-title>
         <div>
-          <div>
-            <a :href="detailsEmployer.Website" target="_blank"> Website </a>
-          </div>
+          <a :href="detailsEmployer.Website" target="_blank"> Website </a>
+        <div>{{ detailsEmployer.Website }}</div>
         </div>
-        <div>{{ detailsEmployer.Description }}</div>
       </v-card-title>
-      <v-layout col wrap>
-        <v-list dense>
-          <v-list-tile>
-            <v-list-tile-content style=" height:100px padding-top: 50px;"> {{ detailsEmployer.Industry}} </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile>
-            <v-list-tile-content style=" height:100px padding-top: 50px;"> {{ detailsEmployer.Values}} </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile>
-            <v-list-tile-content v-badge style=" height:100px padding-top: 50px;"> {{ detailsEmployer.Website}} </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile>
-            <v-list-tile-content style="height:100px padding-top: 50px;"> {{ detailsEmployer.Management}} </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile>
-            <v-list-tile-content >{{ detailsEmployer.Jobs}} </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
-      </v-layout>
-      <div v-for="(number, index) in detailsEmployer.Jobs" :key="index">
-        <v-flex xs12 sm6 offset-sm3 lg4>
-          <v-card>
-            <v-img
-              src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-              height="200px"
-            >
-            </v-img>
-            <v-card-title primary-title>
-              <div>
-                <div class="headline">detailsEmployer.Jobs</div>
-                <span class="grey--text">1,000 miles of wonder</span>
-              </div>
-            </v-card-title>
-            <v-card-actions>
-              <v-btn flat>Share</v-btn>
-              <v-btn flat color="purple">Explore</v-btn>
-              <v-spacer></v-spacer>
-              <v-btn icon @click="show = !show">
-                <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
-              </v-btn>
-            </v-card-actions>
-            <v-slide-y-transition>
-              <v-card-text v-show="show">
-                I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.
-              </v-card-text>
-            </v-slide-y-transition>
-          </v-card>
-        </v-flex>
-      </div>
+      <v-card-title style="padding-top: 50px" secondary-title>
+        <div>
+          Description
+          <div>{{ detailsEmployer.Description }}</div>
+        </div>
+      </v-card-title>
+       <v-card-title secondary-title>
+        <div style="padding-top: 20px">
+          Industry
+          <div>{{ detailsEmployer.Industry }}</div>
+        </div>
+      </v-card-title>
+      <v-card-title secondary-title>
+        <div style="padding-top: 20px">
+          Values
+          <div>{{ detailsEmployer.Values }}</div>
+        </div>
+      </v-card-title>
+
+      <v-flex xs8>
+        <v-layout row>
+          <v-flex xs12>
+            <v-list two-line>
+                <v-list-tile v-for="(item, index) in detailsEmployer"
+                  :key="index"
+                  >
+                  <v-list-tile-content>
+                        <div v-for="(item, index1) in 3" :key="index1" color="indigo darken-1">
+                          {{detailsEmployer.Management[item].JobFunction}}
+                          </div>
+                    </v-list-tile-content>
+                  </v-list-tile>
+              </v-list>
+            </v-flex>
+        </v-layout>
+      </v-flex>
+
+      <v-card-title secondary-title>
+        <div style="padding-top: 20px">
+          Management
+          <!-- <div v-for="(item, index) in 3" :key="index">{{ detailsEmployer.Management[item].JobFunction }}</div> -->
+          <!-- <div v-for="(item2, index2) in 3" :key="index2">{{ detailsEmployer.Management[item2].Name}}</div> -->
+        </div>
+      </v-card-title>
+      <v-card-title secondary-title>
+        <div style="padding-top: 20px">
+          Jobs
+          <div>{{ detailsEmployer.Jobs }}</div>
+        </div>
+      </v-card-title>
       <v-btn color="info" router to = "/">Inapoi</v-btn>
     </v-card>
   </v-container>
@@ -98,6 +97,7 @@
           var details = []
           var employersDetails = myObj
           var employerKeys = Object.keys(employersDetails)
+          console.log(employersDetails)
           var x = employerKeys[this.id]
           console.log(x)
           var y = employerKeys.indexOf(x)
