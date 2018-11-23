@@ -35,39 +35,37 @@
           <div>{{ detailsEmployer.Values }}</div>
         </div>
       </v-card-title>
-
-      <v-flex xs8>
-        <v-layout row>
-          <v-flex xs12>
+      <v-card-title secondary-title>
+        <div style="padding-top: 20px">
+          Management
+          <div>
             <v-list two-line>
-                <v-list-tile v-for="(item, index) in detailsEmployer"
+                <v-list-tile v-for="(item, index) in employers"
                   :key="index"
                   >
                   <v-list-tile-content>
                         <div v-for="(item, index1) in 3" :key="index1" color="indigo darken-1">
                           {{detailsEmployer.Management[item].JobFunction}}
                           </div>
-                    </v-list-tile-content>
-                  </v-list-tile>
-              </v-list>
-            </v-flex>
-        </v-layout>
-      </v-flex>
 
-      <v-card-title secondary-title>
-        <div style="padding-top: 20px">
-          Management
-          <!-- <div v-for="(item, index) in 3" :key="index">{{ detailsEmployer.Management[item].JobFunction }}</div> -->
-          <!-- <div v-for="(item2, index2) in 3" :key="index2">{{ detailsEmployer.Management[item2].Name}}</div> -->
+                    </v-list-tile-content>
+                  <v-list-tile-content>
+                    <div v-for="(item, index2) in 3" :key="index2" color="indigo darken-1">
+                      {{detailsEmployer.Management[item].Name}}
+                    </div>
+                  </v-list-tile-content>
+                </v-list-tile>
+              </v-list>
+          </div>
         </div>
       </v-card-title>
       <v-card-title secondary-title>
         <div style="padding-top: 20px">
           Jobs
-          <div>{{ detailsEmployer.Jobs }}</div>
+          <div>{{ detailsEmployer.Jobs}}</div>
         </div>
       </v-card-title>
-      <v-btn color="info" router to = "/">Inapoi</v-btn>
+      <v-btn color="info" router to = "/">Back</v-btn>
     </v-card>
   </v-container>
 </template>
@@ -91,6 +89,7 @@
     methods: {
     },
     created () {
+      this.$store.dispatch('readRatings', this.id)
       firebase.database().ref('Employer')
         .once('value', snap => {
           const myObj = snap.val()
