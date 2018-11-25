@@ -157,7 +157,7 @@ export default new Vuex.Store({
                 .on('value', snap => {
                     commit('emptyRating')
                     const myObj = snap.val()
-                    console.log(myObj)
+                    // console.log(myObj)
                     commit('gotRating', myObj)
                 }, function(error) {
                     console.log('Error: ' + error.message)

@@ -40,19 +40,14 @@
           Management
           <div>
             <v-list two-line>
-                <v-list-tile v-for="(item, index) in employers"
+                <v-list-tile v-for="(item, index) in detailsEmployer.Management"
                   :key="index"
                   >
-                  <v-list-tile-content>
-                        <div v-for="(item, index1) in 3" :key="index1" color="indigo darken-1">
-                          {{detailsEmployer.Management[item].JobFunction}}
-                          </div>
-
-                    </v-list-tile-content>
-                  <v-list-tile-content>
-                    <div v-for="(item, index2) in 3" :key="index2" color="indigo darken-1">
-                      {{detailsEmployer.Management[item].Name}}
-                    </div>
+                  <v-list-tile-content v-if="item != null">
+                    {{item.JobFunction}}
+                  </v-list-tile-content>
+                  <v-list-tile-content v-if="item != null">
+                    {{item.Name}}
                   </v-list-tile-content>
                 </v-list-tile>
               </v-list>
@@ -84,6 +79,21 @@
     computed: {
       employers () {
         return this.$store.getters.employers
+      },
+      jobs () {
+        var details = []
+        var keysJobs = []
+        var jobs = Object.keys(this.detailsEmployer.Jobs)
+        jobs.forEach(key => {
+          keysJobs.push(this.detailsEmployer.Jobs[key])
+        })
+        var keys = Object.keys(this.$store.getters.jobs)
+        keys.forEach(job => {
+          if (keysJobs.indexOf(job) !== -1) {
+            details.push(this.$store.getters.jobs[job])
+          }
+        })
+        return details
       }
     },
     methods: {
@@ -96,9 +106,9 @@
           var details = []
           var employersDetails = myObj
           var employerKeys = Object.keys(employersDetails)
-          console.log(employersDetails)
+          // console.log(employersDetails)
           var x = employerKeys[this.id]
-          console.log(x)
+          // console.log(x)
           var y = employerKeys.indexOf(x)
           employerKeys.forEach(employer => {
             details.push(employersDetails[employer])
