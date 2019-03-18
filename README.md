@@ -1,6 +1,11 @@
-# devhacks2018
+# Rapjobs @ DevHacks2018
 
-> A Vue.js project
+An application that helps people get the job of their dreams by showing them only jobs that match their personality based on a psychological test.
+
+![Screenshot](/src/assets/1.JPG)
+![Screenshot](/src/assets/2.JPG)
+![Screenshot](/src/assets/3.JPG)
+![Screenshot](/src/assets/4.JPG)
 
 ## Build Setup
 
