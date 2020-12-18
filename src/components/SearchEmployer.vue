@@ -131,9 +131,15 @@
           let matchingIndustry = true
           // let matchingRatings = true
           // filter name
-          matchingName = this.selectedName ? employer.Name.toLowerCase().includes(this.selectedName.toLowerCase()) : true
-          matchingAddress = this.selectedAddress ? employer.Adress.toLowerCase().includes(this.selectedAddress.toLowerCase()) : true
-          matchingIndustry = this.industry ? (employer.Industry.toLowerCase().includes(this.industry.toLowerCase()) || (this.industry === 'All industries')) : true
+          matchingName = this.selectedName
+            ? employer.Name.toLowerCase().includes(this.selectedName.toLowerCase())
+            : true;
+          matchingAddress = this.selectedAddress ?
+            employer.Adress.toLowerCase().includes(this.selectedAddress.toLowerCase())
+            : true;
+          matchingIndustry = this.industry
+            ? (employer.Industry.toLowerCase().includes(this.industry.toLowerCase()) || (this.industry === 'All industries'))
+            : true;
           // filter facilities
           // if (this.selectedFacilities) {
           //   if (employer.Facilities) {
@@ -145,7 +151,7 @@
           //   }
           // }
           return matchingName & matchingAddress & matchingIndustry
-        })
+        });
         return filteredData
       }
     },
