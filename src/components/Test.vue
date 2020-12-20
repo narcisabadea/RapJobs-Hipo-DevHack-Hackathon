@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-stepper v-model="step" vertical>
+    <v-stepper v-model="stepNumber" vertical>
       <div v-for="(category, index) in testData.questions" :key="index">
         <v-stepper-step :complete="stepNumber > findIndexOfCategory(index)" :step="findIndexOfCategory(index)">
           {{ index }}
