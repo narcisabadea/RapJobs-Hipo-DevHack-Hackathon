@@ -1,26 +1,5 @@
 <template>
   <v-container>
-    <!-- <div
-        v-for="(category, index) in testData.questions"
-        :key="index"
-      >
-        <div
-          v-for="(question, index2) in testData.questions[index]"
-          :key="index2"
-        >
-          <v-radio-group v-model="question.answer">
-                        {{ question.text }}
-
-            <v-radio
-              v-for="(answer, index3) in testData.answers[question.key]"
-              :key="index3"
-              :label="answer.text"
-              :value="answer.value"
-            ></v-radio>
-          </v-radio-group>
-        </div>
-      </div> -->
-
     <v-stepper v-model="step" vertical>
       <div v-for="(category, index) in testData.questions" :key="index">
         <v-stepper-step :complete="step.includes(index)" :step="index">
@@ -79,13 +58,11 @@ export default {
     },
   },
   methods: {
-    getDataFromObjectByKey(object, key) {
-      console.log(object, key);
-      return Object.values(object[key]);
-    },
     areAllQuestionsAnswered(category) {
       let answered = 0;
-      console.log(answered, '?', Object.keys(this.testData.questions[category]).length)
+      Object.values(this.testData.questions[category]).forEach((element) => {
+        answered = element.answer ? answered + 1 : answered;
+      });
       return answered === Object.keys(this.testData.questions[category]).length;
     },
   },
