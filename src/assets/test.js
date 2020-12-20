@@ -244,7 +244,7 @@ const data = {
         answer: "",
       },
     ],
-    "impulse-control": [
+    impulseControl: [
       {
         text: "Keep my emotions under control.",
         key: "+",
@@ -353,7 +353,7 @@ const data = {
         answer: "",
       },
     ],
-    "problem-solving": [
+    problemSolving: [
       {
         text: "Enjoy games of strategy.",
         key: "+",
