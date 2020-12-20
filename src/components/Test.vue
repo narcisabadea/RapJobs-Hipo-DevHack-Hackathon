@@ -6,7 +6,7 @@
           :complete="stepNumber > findIndexOfCategory(index)"
           :step="findIndexOfCategory(index)"
         >
-          {{ index }}
+          {{ index | splitWords }}
         </v-stepper-step>
         <v-stepper-content :step="findIndexOfCategory(index)">
           <v-card>
@@ -76,6 +76,11 @@ export default {
       this.$store.getters.user.uid;
     },
   },
+  filters: {
+    splitWords(word) {
+      return word.split(/(?=[A-Z])/).join(" ");
+    },
+  },
   methods: {
     areAllQuestionsAnswered(category) {
       let answered = 0;
@@ -108,5 +113,8 @@ td {
 }
 tr td:first-child {
   text-align: left;
+}
+.v-stepper__step {
+  text-transform: capitalize;
 }
 </style>
