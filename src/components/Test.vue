@@ -2,26 +2,45 @@
   <v-container>
     <v-stepper v-model="stepNumber" vertical>
       <div v-for="(category, index) in testData.questions" :key="index">
-        <v-stepper-step :complete="stepNumber > findIndexOfCategory(index)" :step="findIndexOfCategory(index)">
+        <v-stepper-step
+          :complete="stepNumber > findIndexOfCategory(index)"
+          :step="findIndexOfCategory(index)"
+        >
           {{ index }}
+          <!-- {{ findIndexOfCategory(index) }} -->
         </v-stepper-step>
         <v-stepper-content :step="findIndexOfCategory(index)">
           <v-card>
-            <div
-              v-for="(question, index2) in testData.questions[index]"
-              :key="index2"
-            >
-              <v-radio-group v-model="question.answer">
-                {{ question.text }}
-
-                <v-radio
+            <table>
+              <tr>
+                <th></th>
+                <th>Very Inaccurate</th>
+                <th>Moderately Inaccurate</th>
+                <th>Neither Inaccurate nor Accurate</th>
+                <th>Moderately Accurate</th>
+                <th>Very Accurate</th>
+              </tr>
+              <tr
+                v-for="(question, index2) in testData.questions[index]"
+                :key="index2"
+              >
+                <td>
+                  {{ question.text }}
+                </td>
+                <!-- <v-radio-group v-model="question.answer"> -->
+                <td
                   v-for="(answer, index3) in testData.answers[question.key]"
                   :key="index3"
-                  :label="answer.text"
-                  :value="answer.value"
-                ></v-radio>
-              </v-radio-group>
-            </div>
+                >
+                  <v-radio
+                    :value="answer.value"
+                    :name="index3"
+                    @change="setAnswerForQestion(index, index2, index3)"
+                  ></v-radio>
+                </td>
+                <!-- </v-radio-group> -->
+              </tr>
+            </table>
           </v-card>
           <v-btn
             color="primary"
@@ -49,7 +68,7 @@ export default {
     return {
       testData: data,
       stepNumber: 0,
-      step: '',
+      step: "",
     };
   },
   computed: {
@@ -66,15 +85,24 @@ export default {
       return answered === Object.keys(this.testData.questions[category]).length;
     },
     findIndexOfCategory(category) {
-        return Object.keys(this.testData.questions).indexOf(category)
+      return Object.keys(this.testData.questions).indexOf(category);
     },
     nextStep() {
-        this.stepNumber = this.stepNumber +1;
-        this.step =  Object.keys(this.testData.questions)[this.stepNumber]
-    }
+      this.stepNumber = this.stepNumber + 1;
+      this.step = Object.keys(this.testData.questions)[this.stepNumber];
+    },
+    setAnswerForQestion(category, question, answerPoints) {
+      console.log(category, question, answerPoints);
+    },
   },
   created() {
-      this.step = Object.keys(this.testData.questions)[this.stepNumber]
+    this.step = Object.keys(this.testData.questions)[this.stepNumber];
   },
 };
 </script>
+
+<style scoped>
+.v-radio {
+  place-content: center;
+}
+</style>
