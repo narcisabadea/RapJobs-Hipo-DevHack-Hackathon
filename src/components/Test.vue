@@ -9,49 +9,48 @@
           {{ index | splitWords }}
         </v-stepper-step>
         <v-stepper-content :step="findIndexOfCategory(index)">
-          <v-card>
-            <table>
-              <tr>
-                <th></th>
-                <th>Very Inaccurate</th>
-                <th>Moderately Inaccurate</th>
-                <th>Neither Inaccurate nor Accurate</th>
-                <th>Moderately Accurate</th>
-                <th>Very Accurate</th>
-              </tr>
-              <tr
-                v-for="(question, index2) in testData.questions[index]"
-                :key="index2"
+          <table>
+            <tr>
+              <th></th>
+              <th>Very Inaccurate</th>
+              <th>Moderately Inaccurate</th>
+              <th>Neither Inaccurate nor Accurate</th>
+              <th>Moderately Accurate</th>
+              <th>Very Accurate</th>
+            </tr>
+            <tr
+              v-for="(question, index2) in testData.questions[index]"
+              :key="index2"
+              class="border-bottom"
+            >
+              <td>
+                {{ question.text }}
+              </td>
+              <!-- <v-radio-group v-model="question.answer"> -->
+              <td
+                v-for="(answer, index3) in testData.answers[question.key]"
+                :key="index3"
               >
-                <td>
-                  {{ question.text }}
-                </td>
-                <!-- <v-radio-group v-model="question.answer"> -->
-                <td
-                  v-for="(answer, index3) in testData.answers[question.key]"
-                  :key="index3"
-                >
-                  <input
-                    type="radio"
-                    :value="answer.value"
-                    :name="index + index2"
-                    @change="setAnswerForQestion(index, index2, index3)"
-                  />
-                </td>
-                <!-- </v-radio-group> -->
-              </tr>
-            </table>
-          </v-card>
-          <v-btn
-            color="primary"
-            :disabled="!areAllQuestionsAnswered(index)"
-            @click="nextStep()"
-          >
-            Continue
-          </v-btn>
-          <v-btn text>
-            Cancel
-          </v-btn>
+                <input
+                  type="radio"
+                  :value="answer.value"
+                  :name="index + index2"
+                  @change="setAnswerForQestion(index, index2, index3)"
+                />
+              </td>
+              <!-- </v-radio-group> -->
+            </tr>
+          </table>
+
+          <div class="buttons">
+            <v-btn
+              color="primary"
+              :disabled="!areAllQuestionsAnswered(index)"
+              @click="nextStep()"
+            >
+              Continue
+            </v-btn>
+          </div>
         </v-stepper-content>
       </div>
     </v-stepper>
@@ -85,7 +84,7 @@ export default {
     areAllQuestionsAnswered(category) {
       let answered = 0;
       Object.values(this.testData.questions[category]).forEach((element) => {
-        answered = element.answer ? answered + 1 : answered;
+        answered = element.answer || element.answer === 0 ? answered + 1 : answered;
       });
       return answered === Object.keys(this.testData.questions[category]).length;
     },
@@ -97,6 +96,7 @@ export default {
       this.step = Object.keys(this.testData.questions)[this.stepNumber];
     },
     setAnswerForQestion(category, question, answerPoints) {
+        console.log(category, question, answerPoints)
       this.testData.questions[category][question].answer = answerPoints;
     },
   },
@@ -116,5 +116,17 @@ tr td:first-child {
 }
 .v-stepper__step {
   text-transform: capitalize;
+}
+table tr:first-child th {
+  padding: 20px;
+}
+tr.border-bottom td {
+  border-bottom: 1px solid lightgray;
+  padding: 5px;
+}
+.buttons {
+  display: flex;
+  margin-top: 15px;
+  justify-content: flex-end;
 }
 </style>
