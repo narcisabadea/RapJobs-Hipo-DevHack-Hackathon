@@ -2,11 +2,10 @@
   <v-container>
     <v-stepper v-model="step" vertical>
       <div v-for="(category, index) in testData.questions" :key="index">
-        <v-stepper-step :complete="step.includes(index)" :step="index">
+        <v-stepper-step :complete="stepNumber > findIndexOfCategory(index)" :step="findIndexOfCategory(index)">
           {{ index }}
         </v-stepper-step>
-
-        <v-stepper-content :step="index">
+        <v-stepper-content :step="findIndexOfCategory(index)">
           <v-card>
             <div
               v-for="(question, index2) in testData.questions[index]"
@@ -27,7 +26,7 @@
           <v-btn
             color="primary"
             :disabled="!areAllQuestionsAnswered(index)"
-            @click="step.push(index)"
+            @click="nextStep()"
           >
             Continue
           </v-btn>
@@ -49,7 +48,8 @@ export default {
   data() {
     return {
       testData: data,
-      step: Object.keys(data.questions)[0],
+      stepNumber: 0,
+      step: '',
     };
   },
   computed: {
@@ -65,7 +65,16 @@ export default {
       });
       return answered === Object.keys(this.testData.questions[category]).length;
     },
+    findIndexOfCategory(category) {
+        return Object.keys(this.testData.questions).indexOf(category)
+    },
+    nextStep() {
+        this.stepNumber = this.stepNumber +1;
+        this.step =  Object.keys(this.testData.questions)[this.stepNumber]
+    }
   },
-  created() {},
+  created() {
+      this.step = Object.keys(this.testData.questions)[this.stepNumber]
+  },
 };
 </script>
