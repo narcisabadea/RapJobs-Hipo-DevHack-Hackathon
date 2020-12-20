@@ -1,7 +1,6 @@
 <template>
   <v-app>
-    <v-toolbar
-      app
+    <v-app-bar app
       :clipped-left="true"
       dark color="light-blue lighten-1"
     >
@@ -11,9 +10,8 @@
       <v-spacer></v-spacer>
       <v-menu offset-y v-show="userIsAuthenticated">
         <v-btn
-          flat
-          slot="activator">
-          <v-icon round left>account_circle</v-icon> Account
+          text>
+          <v-icon rounded left>account_circle</v-icon> Account
         </v-btn>
         <v-list>
           <v-list-tile>
@@ -29,16 +27,16 @@
         </v-list>
       </v-menu>
 
-      <v-btn flat round @click="(dialogTest = true)" v-if="(ifTest === false) && (userIsAuthenticated === true)"> Take the personality test
+      <v-btn text rounded @click="(dialogTest = true)" v-if="(ifTest === false) && (userIsAuthenticated === true)"> Take the personality test
       </v-btn>
-      <v-btn flat round @click="(dialogSignUp = true)" v-if="userIsAuthenticated === false"> Sign up
+      <v-btn text rounded @click="(dialogSignUp = true)" v-if="userIsAuthenticated === false"> Sign up
       </v-btn>
-      <v-btn flat round @click="(dialogSignIn = true)" v-if="userIsAuthenticated === false"> Sign in
+      <v-btn text rounded @click="(dialogSignIn = true)" v-if="userIsAuthenticated === false"> Sign in
       </v-btn>
-    </v-toolbar>
-    <v-content>
+    </v-app-bar>
+    <v-main>
       <router-view/>
-    </v-content>
+    </v-main>
 
     <v-dialog v-model="dialogSignUp" max-width="50%">
       <v-layout align-center justify-center>
@@ -95,7 +93,7 @@
     </v-dialog>
 
     <v-dialog v-model="dialogSignIn" max-width="30%">
-      <v-layout align-center justify-space-around row>
+      <v-layout align-center justify-space-arounded row>
         <v-flex>
           <v-card class="elevation-0">
             <v-card-text class="text-xs-center">
@@ -115,7 +113,7 @@
               </v-text-field>
             </v-card-text>
             <v-card-actions>
-              <v-btn flat color="indigo darken-1" type="submit" @click="forgotPassword"> Forgot password
+              <v-btn text color="indigo darken-1" type="submit" @click="forgotPassword"> Forgot password
               </v-btn>
               <v-spacer></v-spacer>
               <v-btn color="indigo darken-1 white--text" @click="userSignin"> Log in
@@ -126,7 +124,7 @@
       </v-layout>
     </v-dialog>
 
-    <v-dialog round v-model="dialogTest" max-width="50%" persistent>
+    <v-dialog rounded v-model="dialogTest" max-width="50%" persistent>
       <v-layout align-center justify-center>
         <v-flex>
           <v-card class="elevation-12">

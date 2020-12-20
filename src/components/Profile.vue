@@ -29,11 +29,11 @@
                     id="prenume"
                     v-model="surname">
                     </v-text-field>
-                  <v-btn color="primary" flat @click="dialogEmail = true">Change email</v-btn>
-                  <v-btn color="primary" flat @click="dialogPassword = true">Change password</v-btn>
+                  <v-btn color="primary" text @click="dialogEmail = true">Change email</v-btn>
+                  <v-btn color="primary" text @click="dialogPassword = true">Change password</v-btn>
                   <v-flex>
                     <v-btn color="primary">Save</v-btn>
-                    <v-btn flat color="primary" router to = "/">Back</v-btn>
+                    <v-btn text color="primary" router to = "/">Back</v-btn>
                   </v-flex>
                 </v-card-text>
               </v-card>
@@ -77,7 +77,7 @@
               <v-spacer></v-spacer>
               <v-btn
                 color="primary"
-                flat
+                text
                 @click="updateEmail"
               >
                 Save
@@ -117,7 +117,7 @@
               <v-spacer></v-spacer>
               <v-btn
                 color="primary"
-                flat
+                text
                 @click="updatePassword"
               >
                 Save

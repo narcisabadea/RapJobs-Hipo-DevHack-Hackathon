@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-layout align-center justify-space-around row>
+    <v-layout align-center justify-space-arounded row>
       <!-- buttons -->
       <p>
         <v-btn to="/SearchEmployer">Search employers</v-btn>
