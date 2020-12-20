@@ -7,7 +7,6 @@
           :step="findIndexOfCategory(index)"
         >
           {{ index }}
-          <!-- {{ findIndexOfCategory(index) }} -->
         </v-stepper-step>
         <v-stepper-content :step="findIndexOfCategory(index)">
           <v-card>
@@ -32,11 +31,12 @@
                   v-for="(answer, index3) in testData.answers[question.key]"
                   :key="index3"
                 >
-                  <v-radio
+                  <input
+                    type="radio"
                     :value="answer.value"
-                    :name="index3"
+                    :name="index + index2"
                     @change="setAnswerForQestion(index, index2, index3)"
-                  ></v-radio>
+                  />
                 </td>
                 <!-- </v-radio-group> -->
               </tr>
@@ -92,7 +92,7 @@ export default {
       this.step = Object.keys(this.testData.questions)[this.stepNumber];
     },
     setAnswerForQestion(category, question, answerPoints) {
-      console.log(category, question, answerPoints);
+      this.testData.questions[category][question].answer = answerPoints;
     },
   },
   created() {
@@ -102,7 +102,11 @@ export default {
 </script>
 
 <style scoped>
-.v-radio {
+td {
   place-content: center;
+  text-align: -webkit-center;
+}
+tr td:first-child {
+  text-align: left;
 }
 </style>
