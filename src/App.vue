@@ -1,19 +1,13 @@
 <template>
   <v-app>
-    <v-toolbar
-      app
-      :clipped-left="true"
-      dark color="light-blue lighten-1"
-    >
-    <router-link :to="'/'">
-      <v-toolbar-title class="white--text">Rapjobs</v-toolbar-title>
-    </router-link>
+    <v-app-bar app :clipped-left="true" dark color="light-blue lighten-1">
+      <router-link :to="'/'">
+        <v-toolbar-title class="white--text">Rapjobs</v-toolbar-title>
+      </router-link>
       <v-spacer></v-spacer>
       <v-menu offset-y v-show="userIsAuthenticated">
-        <v-btn
-          flat
-          slot="activator">
-          <v-icon round left>account_circle</v-icon> Account
+        <v-btn text>
+          <v-icon rounded left>account_circle</v-icon> Account
         </v-btn>
         <v-list>
           <v-list-tile>
@@ -21,7 +15,7 @@
               <v-list-tile-title> Profile </v-list-tile-title>
             </router-link>
           </v-list-tile>
-          <v-list-tile  @click="onSignOut">
+          <v-list-tile @click="onSignOut">
             <router-link to="/" tag="li" style="cursor:pointer">
               <v-list-tile-title> Sign out </v-list-tile-title>
             </router-link>
@@ -29,16 +23,34 @@
         </v-list>
       </v-menu>
 
-      <v-btn flat round @click="(dialogTest = true)" v-if="(ifTest === false) && (userIsAuthenticated === true)"> Take the personality test
+      <v-btn
+        text
+        rounded
+        @click="dialogTest = true"
+        v-if="ifTest === false && userIsAuthenticated === true"
+      >
+        Take the personality test
       </v-btn>
-      <v-btn flat round @click="(dialogSignUp = true)" v-if="userIsAuthenticated === false"> Sign up
+      <v-btn
+        text
+        rounded
+        @click="dialogSignUp = true"
+        v-if="userIsAuthenticated === false"
+      >
+        Sign up
       </v-btn>
-      <v-btn flat round @click="(dialogSignIn = true)" v-if="userIsAuthenticated === false"> Sign in
+      <v-btn
+        text
+        rounded
+        @click="dialogSignIn = true"
+        v-if="userIsAuthenticated === false"
+      >
+        Sign in
       </v-btn>
-    </v-toolbar>
-    <v-content>
-      <router-view/>
-    </v-content>
+    </v-app-bar>
+    <v-main>
+      <router-view />
+    </v-main>
 
     <v-dialog v-model="dialogSignUp" max-width="50%">
       <v-layout align-center justify-center>
@@ -87,38 +99,48 @@
                 </v-text-field>
               </v-form>
             </v-card-text>
-              <v-btn color="primary" type="submit" @click="userSignUp">Sign Up</v-btn>
-              <v-btn color="primary" type="submit" @click="(dialogSignUp = false)">Back</v-btn>
+            <v-btn color="primary" type="submit" @click="userSignUp"
+              >Sign Up</v-btn
+            >
+            <v-btn color="primary" type="submit" @click="dialogSignUp = false"
+              >Back</v-btn
+            >
           </v-card>
         </v-flex>
       </v-layout>
     </v-dialog>
 
     <v-dialog v-model="dialogSignIn" max-width="30%">
-      <v-layout align-center justify-space-around row>
+      <v-layout align-center justify-space-arounded row>
         <v-flex>
           <v-card class="elevation-0">
             <v-card-text class="text-xs-center">
               <v-icon x-large color="indigo darken-1">account_circle</v-icon>
             </v-card-text>
             <v-card-text>
-              <v-text-field
-                v-model="email"
-                label="Email adress">
+              <v-text-field v-model="email" label="Email adress">
               </v-text-field>
               <v-text-field
                 v-model="password"
                 label="Password"
                 :append-icon="show ? 'visibility_off' : 'visibility'"
                 :type="show ? 'text' : 'password'"
-                @click:append="show = !show">
+                @click:append="show = !show"
+              >
               </v-text-field>
             </v-card-text>
             <v-card-actions>
-              <v-btn flat color="indigo darken-1" type="submit" @click="forgotPassword"> Forgot password
+              <v-btn
+                text
+                color="indigo darken-1"
+                type="submit"
+                @click="forgotPassword"
+              >
+                Forgot password
               </v-btn>
               <v-spacer></v-spacer>
-              <v-btn color="indigo darken-1 white--text" @click="userSignin"> Log in
+              <v-btn color="indigo darken-1 white--text" @click="userSignin">
+                Log in
               </v-btn>
             </v-card-actions>
           </v-card>
@@ -126,23 +148,31 @@
       </v-layout>
     </v-dialog>
 
-    <v-dialog round v-model="dialogTest" max-width="50%" persistent>
+    <v-dialog rounded v-model="dialogTest" max-width="50%" persistent>
       <v-layout align-center justify-center>
         <v-flex>
           <v-card class="elevation-12">
             <v-toolbar dark color="primary">
-              <v-toolbar-title>Personality Test</v-toolbar-title>
-            </v-toolbar><br>
+              <v-toolbar-title>Personality Test</v-toolbar-title> </v-toolbar
+            ><br />
             <v-card-text>
-            <v-alert
-              :value="true"
-              type="success"
-            >
-              <h3>Relax, get in a quiet place, and read the entire text before making any markings.</h3>
-            </v-alert>
+              <v-alert :value="true" type="success">
+                <h3>
+                  Relax, get in a quiet place, and read the entire text before
+                  making any markings.
+                </h3>
+              </v-alert>
             </v-card-text>
-              <v-btn color="primary" type="submit" @click="dialogTest=false">Exit</v-btn>
-              <v-btn color="primary" to="/Test" type="submit" @click="dialogTest=false">Next</v-btn>
+            <v-btn color="primary" type="submit" @click="dialogTest = false"
+              >Exit</v-btn
+            >
+            <v-btn
+              color="primary"
+              to="/Test"
+              type="submit"
+              @click="dialogTest = false"
+              >Next</v-btn
+            >
           </v-card>
         </v-flex>
       </v-layout>
@@ -151,97 +181,116 @@
 </template>
 
 <script>
- /* eslint-disable */
-import firebase from 'firebase'
+/* eslint-disable */
+import firebase from "firebase";
 export default {
-  data () {
+  data() {
     return {
       clipped: false,
       drawer: true,
       fixed: false,
-      items: [{
-        icon: 'bubble_chart',
-        title: 'Inspire'
-      }],
+      items: [
+        {
+          icon: "bubble_chart",
+          title: "Inspire",
+        },
+      ],
       miniVariant: false,
       right: true,
-      title: 'Vuetify.js',
+      title: "Vuetify.js",
       show: false,
-      Name: '',
-      email: '',
-      email1: '',
-      Surname: '',
-      password: '',
-      password2: '',
-      passwordConfirm: '',
-      confirmPassword: '',
+      Name: "",
+      email: "",
+      email1: "",
+      Surname: "",
+      password: "",
+      password2: "",
+      passwordConfirm: "",
+      confirmPassword: "",
       dialogSignIn: false,
       dialogSignUp: false,
       dialogTest: false,
       e1: true,
-      number: '',
+      number: "",
       rules: {
-        required: (value) => !!value || 'Required.',
+        required: (value) => !!value || "Required.",
         email: (value) => {
-          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-          return pattern.test(value) || 'Invalid e-mail.'
-        }
-      }
-    }
+          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          return pattern.test(value) || "Invalid e-mail.";
+        },
+      },
+    };
   },
   computed: {
-    user () {
-      return this.$store.getters.user
+    user() {
+      return this.$store.getters.user;
     },
-    userdetails () {
-      return this.$store.getters.userdetails
+    userdetails() {
+      return this.$store.getters.userdetails;
     },
-    error () {
-      return this.$store.getters.error
+    error() {
+      return this.$store.getters.error;
     },
-    comparePasswords () {
-      return this.password2 !== this.confirmPassword ? 'Passwords do not match' : ''
+    comparePasswords() {
+      return this.password2 !== this.confirmPassword
+        ? "Passwords do not match"
+        : "";
     },
-    onLoad () {
+    onLoad() {
       if (this.userIsAuthenticated) {
-        this.$router.push('/')
+        this.$router.push("/");
       }
     },
-    userIsAuthenticated () {
-      return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+    userIsAuthenticated() {
+      return (
+        this.$store.getters.user !== null &&
+        this.$store.getters.user !== undefined
+      );
     },
-    ifTest () {
-      return this.$store.getters.test
-    }
+    ifTest() {
+      return this.$store.getters.test;
+    },
   },
   methods: {
-    userSignin () {
-      this.$store.dispatch('signIn', {email: this.email, password: this.password})
-      this.dialogSignIn = false
+    userSignin() {
+      this.$store.dispatch("signIn", {
+        email: this.email,
+        password: this.password,
+      });
+      this.dialogSignIn = false;
     },
-    onSignOut () {
-      this.$store.dispatch('signOut')
+    onSignOut() {
+      this.$store.dispatch("signOut");
     },
-    userSignUp () {
-      this.$store.dispatch('signUp', {email: this.email1, password: this.password2, name: this.Name, surname: this.Surname})
-      this.dialogSignUp = false
+    userSignUp() {
+      this.$store.dispatch("signUp", {
+        email: this.email1,
+        password: this.password2,
+        name: this.Name,
+        surname: this.Surname,
+      });
+      this.dialogSignUp = false;
     },
-    forgotPassword () {
-      const emailprompt = prompt('Add your email adress', '')
-      firebase.auth().sendPasswordResetEmail(emailprompt).then(function () {
-        window.alert('An email has been sent to: ' + emailprompt)
-      }).catch(function (error) {
-        window.alert(error.message)
-      })
-    }
+    forgotPassword() {
+      const emailprompt = prompt("Add your email adress", "");
+      firebase
+        .auth()
+        .sendPasswordResetEmail(emailprompt)
+        .then(function() {
+          window.alert("An email has been sent to: " + emailprompt);
+        })
+        .catch(function(error) {
+          window.alert(error.message);
+        });
+    },
   },
-  name: 'App',
-  created () {
-    this.$store.dispatch('AuthChange')
-    this.$store.dispatch('getUserData')
-    this.$store.dispatch('readJobs')
-    this.$store.dispatch('readEmployer')
-    this.$store.dispatch('readRatings')
+  name: "App",
+  created() {
+    this.$store.dispatch("AuthChange");
+    this.$store.dispatch("getUserData");
+    this.$store.dispatch("readJobs");
+    this.$store.dispatch("readEmployer");
+    this.$store.dispatch("readRatings");
     // ADD EMPLOYER
     // firebase.database().ref('Employer')
     // .push({
@@ -282,7 +331,7 @@ export default {
     //     ScheduleEnd: 20,
     //     Tag: 'Marketing',
     //     Team: {
-        
+
     //     },
     //     Trainings: 'Design Training',
     //     Responsabilities: 'Create creative content, visually attractive and inovative.'
@@ -303,12 +352,15 @@ export default {
     //       Rating: '1',
     //       Comment: 'Salary not paid on time'
     //   })
-   }
-}
+  },
+};
 </script>
 
 <style>
 a {
   text-decoration: none;
+}
+html {
+  color: #444444;
 }
 </style>
