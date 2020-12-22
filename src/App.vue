@@ -5,32 +5,23 @@
         <v-toolbar-title class="white--text">Rapjobs</v-toolbar-title>
       </router-link>
       <v-spacer></v-spacer>
-      <v-menu offset-y v-show="userIsAuthenticated">
-        <v-btn text>
-          <v-icon rounded left>account_circle</v-icon> Account
+        <v-btn text to="/Profile" v-show='userIsAuthenticated'>
+          <v-icon rounded left>mdi-account</v-icon> Profile
         </v-btn>
-        <v-list>
-          <v-list-tile>
-            <router-link to="/Profile" tag="li" style="cursor:pointer">
-              <v-list-tile-title> Profile </v-list-tile-title>
-            </router-link>
-          </v-list-tile>
-          <v-list-tile @click="onSignOut">
-            <router-link to="/" tag="li" style="cursor:pointer">
-              <v-list-tile-title> Sign out </v-list-tile-title>
-            </router-link>
-          </v-list-tile>
-        </v-list>
-      </v-menu>
-
-      <v-btn
+          <v-btn
         text
         rounded
         @click="dialogTest = true"
         v-if="ifTest === false && userIsAuthenticated === true"
       >
-        Take the personality test
+       <v-icon rounded left>mdi-file</v-icon> 
+        Take the test
+
       </v-btn>
+         <v-btn text to="/" @click="onSignOut" v-show='userIsAuthenticated'>
+          <v-icon rounded left>mdi-power</v-icon>Log out
+        </v-btn>
+    
       <v-btn
         text
         rounded
