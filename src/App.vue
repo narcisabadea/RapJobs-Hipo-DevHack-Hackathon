@@ -5,32 +5,23 @@
         <v-toolbar-title class="white--text">Rapjobs</v-toolbar-title>
       </router-link>
       <v-spacer></v-spacer>
-      <v-menu offset-y v-show="userIsAuthenticated">
-        <v-btn text>
-          <v-icon rounded left>account_circle</v-icon> Account
+        <v-btn text to="/Profile" v-show='userIsAuthenticated'>
+          <v-icon rounded left>mdi-account</v-icon> Profile
         </v-btn>
-        <v-list>
-          <v-list-tile>
-            <router-link to="/Profile" tag="li" style="cursor:pointer">
-              <v-list-tile-title> Profile </v-list-tile-title>
-            </router-link>
-          </v-list-tile>
-          <v-list-tile @click="onSignOut">
-            <router-link to="/" tag="li" style="cursor:pointer">
-              <v-list-tile-title> Sign out </v-list-tile-title>
-            </router-link>
-          </v-list-tile>
-        </v-list>
-      </v-menu>
-
-      <v-btn
+          <v-btn
         text
         rounded
         @click="dialogTest = true"
         v-if="ifTest === false && userIsAuthenticated === true"
       >
-        Take the personality test
+       <v-icon rounded left>mdi-file</v-icon> 
+        Take the test
+
       </v-btn>
+         <v-btn text to="/" @click="onSignOut" v-show='userIsAuthenticated'>
+          <v-icon rounded left>mdi-power</v-icon>Log out
+        </v-btn>
+    
       <v-btn
         text
         rounded
@@ -53,12 +44,24 @@
     </v-main>
 
     <v-dialog v-model="dialogSignUp" max-width="50%">
-      <v-layout align-center justify-center>
-        <v-flex>
-          <v-card class="elevation-12">
-            <v-toolbar dark color="primary">
-              <v-toolbar-title>Sign up</v-toolbar-title>
-            </v-toolbar>
+      <v-card class="elevation-0">
+        <v-row class="container-style">
+          <v-col cols="12" sm="6" align="center" justify="space-between">
+            <img src="./assets/signup.png" style="width: 100%;" />
+            <v-btn
+              text
+              color="indigo darken-1"
+              type="submit"
+              @click="openSignInDialog"
+            >
+              Already have an account? Login
+            </v-btn>
+          </v-col>
+
+          <v-col cols="12" sm="6">
+            <div class="signup-text">
+              Create your account
+            </div>
             <v-card-text>
               <v-form>
                 <v-text-field
@@ -86,7 +89,6 @@
                   :append-icon-cb="() => (e1 = !e1)"
                   :type="e1 ? 'password' : 'text'"
                   :rules="[rules.required]"
-                  counter
                 >
                 </v-text-field>
                 <v-text-field
@@ -99,53 +101,53 @@
                 </v-text-field>
               </v-form>
             </v-card-text>
-            <v-btn color="primary" type="submit" @click="userSignUp"
-              >Sign Up</v-btn
-            >
-            <v-btn color="primary" type="submit" @click="dialogSignUp = false"
-              >Back</v-btn
-            >
-          </v-card>
-        </v-flex>
-      </v-layout>
+            <v-card-actions>
+              <v-btn color="indigo darken-1 white--text" type="submit" @click="userSignUp"
+                >Sign Up</v-btn
+              >
+            </v-card-actions>
+          </v-col>
+        </v-row>
+      </v-card>
     </v-dialog>
 
-    <v-dialog v-model="dialogSignIn" max-width="30%">
-      <v-layout align-center justify-space-arounded row>
-        <v-flex>
-          <v-card class="elevation-0">
-            <v-card-text class="text-xs-center">
-              <v-icon x-large color="indigo darken-1">account_circle</v-icon>
-            </v-card-text>
+    <v-dialog v-model="dialogSignIn" max-width="50%">
+      <v-card class="elevation-0">
+        <v-row class="container-style">
+          <v-col cols="12" sm="6" align="center" justify="space-around">
+            <img src="./assets/login.png" style="width: 100%" />
+            <v-btn
+              text
+              color="indigo darken-1"
+              type="submit"
+              @click="openSignUpDialog"
+            >
+              Create an account
+            </v-btn>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <div class="login-text">
+              Login
+            </div>
             <v-card-text>
-              <v-text-field v-model="email" label="Email adress">
-              </v-text-field>
+              <v-text-field v-model="email" label="Email"> </v-text-field>
               <v-text-field
                 v-model="password"
                 label="Password"
-                :append-icon="show ? 'visibility_off' : 'visibility'"
+                :append-icon="show ? 'mdi-eye-off' : 'mdi-eye'"
                 :type="show ? 'text' : 'password'"
                 @click:append="show = !show"
               >
               </v-text-field>
             </v-card-text>
             <v-card-actions>
-              <v-btn
-                text
-                color="indigo darken-1"
-                type="submit"
-                @click="forgotPassword"
-              >
-                Forgot password
-              </v-btn>
-              <v-spacer></v-spacer>
               <v-btn color="indigo darken-1 white--text" @click="userSignin">
-                Log in
+                Login
               </v-btn>
             </v-card-actions>
-          </v-card>
-        </v-flex>
-      </v-layout>
+          </v-col>
+        </v-row>
+      </v-card>
     </v-dialog>
 
     <v-dialog rounded v-model="dialogTest" max-width="50%" persistent>
@@ -271,17 +273,13 @@ export default {
       });
       this.dialogSignUp = false;
     },
-    forgotPassword() {
-      const emailprompt = prompt("Add your email adress", "");
-      firebase
-        .auth()
-        .sendPasswordResetEmail(emailprompt)
-        .then(function() {
-          window.alert("An email has been sent to: " + emailprompt);
-        })
-        .catch(function(error) {
-          window.alert(error.message);
-        });
+    openSignUpDialog() {
+      this.dialogSignUp = true;
+      this.dialogSignIn = false;
+    },
+    openSignInDialog() {
+      this.dialogSignIn = true;
+      this.dialogSignUp = false;
     },
   },
   name: "App",
@@ -362,5 +360,20 @@ a {
 }
 html {
   color: #444444;
+}
+.login-text {
+  font-weight: bold;
+  font-size: 28px;
+  margin-left: 15px;
+  margin-bottom: 40px;
+}
+.container-style {
+  padding: 20px 10px 20px 10px;
+}
+.signup-text {
+  font-weight: bold;
+  font-size: 28px;
+  margin-left: 15px;
+  margin-bottom: 25px;
 }
 </style>
