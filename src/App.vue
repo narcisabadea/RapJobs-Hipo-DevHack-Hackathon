@@ -110,42 +110,40 @@
       </v-layout>
     </v-dialog>
 
-    <v-dialog v-model="dialogSignIn" max-width="30%">
-      <v-layout align-center justify-space-arounded row>
-        <v-flex>
-          <v-card class="elevation-0">
-            <v-card-text class="text-xs-center">
-              <v-icon x-large color="indigo darken-1">account_circle</v-icon>
-            </v-card-text>
+    <v-dialog v-model="dialogSignIn" max-width="50%">
+      <v-card class="elevation-0">
+        <v-row class="container-style">
+          <v-col cols="12" sm="6" align="center" justify="space-around">
+            <img src="./assets/login.png" style="width: 100%" />
+            <v-btn text  color="indigo darken-1"
+                type="submit"  @click="openSignUpDialog">
+              Create an account
+            </v-btn>
+          </v-col>
+          <v-col cols="12" sm="6">
+            <div class="login-text">
+              Login
+            </div>
             <v-card-text>
-              <v-text-field v-model="email" label="Email adress">
+              <v-text-field v-model="email" label="Email">
               </v-text-field>
               <v-text-field
                 v-model="password"
                 label="Password"
-                :append-icon="show ? 'visibility_off' : 'visibility'"
+                :append-icon="show ? 'mdi-eye-off' : 'mdi-eye'"
                 :type="show ? 'text' : 'password'"
                 @click:append="show = !show"
               >
               </v-text-field>
             </v-card-text>
             <v-card-actions>
-              <v-btn
-                text
-                color="indigo darken-1"
-                type="submit"
-                @click="forgotPassword"
-              >
-                Forgot password
-              </v-btn>
-              <v-spacer></v-spacer>
-              <v-btn color="indigo darken-1 white--text" @click="userSignin">
-                Log in
+              <v-btn color="indigo darken-1 white--text" @click="userSignin" > 
+                Login
               </v-btn>
             </v-card-actions>
-          </v-card>
-        </v-flex>
-      </v-layout>
+          </v-col>
+        </v-row>
+      </v-card>
     </v-dialog>
 
     <v-dialog rounded v-model="dialogTest" max-width="50%" persistent>
@@ -271,18 +269,10 @@ export default {
       });
       this.dialogSignUp = false;
     },
-    forgotPassword() {
-      const emailprompt = prompt("Add your email adress", "");
-      firebase
-        .auth()
-        .sendPasswordResetEmail(emailprompt)
-        .then(function() {
-          window.alert("An email has been sent to: " + emailprompt);
-        })
-        .catch(function(error) {
-          window.alert(error.message);
-        });
-    },
+    openSignUpDialog(){
+      this.dialogSignUp = true;
+      this.dialogSignIn = false
+    }
   },
   name: "App",
   created() {
@@ -362,5 +352,14 @@ a {
 }
 html {
   color: #444444;
+}
+.login-text {
+  font-weight: bold;
+  font-size: 28px;
+  margin-left: 15px;
+  margin-bottom: 40px;
+}
+.container-style {
+  padding: 20px 10px 20px 10px;
 }
 </style>
