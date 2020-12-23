@@ -47,7 +47,7 @@
       <v-card class="elevation-0">
         <v-row class="container-style">
           <v-col cols="12" sm="6" align="center" justify="space-between">
-            <img src="./assets/signup.png" style="width: 100%;" />
+            <img src="./assets/signupDialog.png" style="width: 100%;" />
             <v-btn
               text
               color="indigo darken-1"
@@ -115,7 +115,7 @@
       <v-card class="elevation-0">
         <v-row class="container-style">
           <v-col cols="12" sm="6" align="center" justify="space-around">
-            <img src="./assets/login.png" style="width: 100%" />
+            <img src="./assets/loginDialog.png" style="width: 100%" />
             <v-btn
               text
               color="indigo darken-1"
