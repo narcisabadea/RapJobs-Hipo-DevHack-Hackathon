@@ -87,6 +87,7 @@
           :searchType="searchType"
           v-for="(result, index) in dataFilter"
           :key="index"
+          :id="index"
         ></CardResult>
       </v-flex>
     </v-layout>
