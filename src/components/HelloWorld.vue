@@ -112,7 +112,7 @@ export default {
 
 <style scoped>
 .container {
-  background: url("./../assets/hp.jpg");
+  background: url("./../assets/hp2.jpg");
   height: 100%;
   background-size: cover;
   display: flex;
