@@ -2,14 +2,10 @@
   <v-container grid-list-sm>
     <v-card>
       <v-row>
-        <v-col cols="12" sm="3">
-          <img
-            src="https://btclub.ro/uploads/media/default/0001/01/3f98b71e128942ac69e33371d7b85ded7d21ee02.jpeg"
-            width="80%"
-            style="display: block; margin-left: auto; margin-right: auto"
-          />
+        <v-col cols="12" sm="4">
+          <img :src="detailsEmployer.Logo" class="employer-logo" />
         </v-col>
-        <v-col cols="12" sm="9">
+        <v-col cols="12" sm="8">
           <div class="title-style">{{ detailsEmployer.Name }}</div>
           <div class="col-style">
             <div>
@@ -26,7 +22,7 @@
       </v-row>
 
       <v-row>
-        <v-col cols="12" sm="12">
+        <v-col cols="12" sm="9">
           <div class="description-style">Description</div>
           <div class="description-col-style">
             <div>
@@ -34,10 +30,14 @@
             </div>
           </div>
         </v-col>
+        <v-col cols="12" sm="3">
+          <img src="../assets/description.png" class="description-logo" />
+        </v-col>
       </v-row>
 
       <v-row>
-        <v-col cols="12" sm="12">
+     
+        <v-col cols="12" sm="9">
           <div class="description-style">Values</div>
           <div class="description-col-style">
             <div>
@@ -45,13 +45,15 @@
             </div>
           </div>
         </v-col>
+           <v-col cols="12" sm="3">
+          <img src="../assets/values.png" class="description-logo" />
+        </v-col>
       </v-row>
 
       <v-row>
-        <v-col cols="12" sm="12">
+        <v-col cols="12" sm="9">
           <div class="description-style">Management</div>
           <div class="description-col-style">
-            <div>
               <v-list dense>
                 <v-list-item
                   v-for="(item, index) in detailsEmployer.Management"
@@ -63,17 +65,31 @@
                 </v-list-item>
               </v-list>
             </div>
-          </div>
+        </v-col>
+        <v-col cols="12" sm="3">
+          <img src="../assets/team.png" class="description-logo" />
         </v-col>
       </v-row>
       <v-row>
-        <v-col cols="12" sm="12">
+        
+        <v-col cols="12" sm="9">
           <div class="description-style">Jobs</div>
           <div class="description-col-style">
-            <div>
-              {{ detailsEmployer.Jobs }}
-            </div>
+             <v-list dense>
+                <v-list-item
+                  v-for="(item, index) in detailsEmployer.Jobs"
+                  :key="index"
+                >
+                  <v-list-item-content v-if="item != null">
+                    {{ item }}
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+
           </div>
+        </v-col>
+        <v-col cols="12" sm="3">
+          <img src="../assets/jobs.png" class="description-logo" />
         </v-col>
       </v-row>
 
@@ -152,7 +168,7 @@ export default {
   display: none;
 }
 .col-style {
-  border-left: 4px solid #006400;
+  border-left: 4px solid #3949ab;
   padding-left: 30px;
   margin-left: 30px;
   margin-top: 15px;
@@ -162,20 +178,20 @@ export default {
   font-size: 28px;
   font-weight: bold;
   margin-top: 20px;
-  color: #006400;
+  color: #3949ab;
 }
 .description-style {
   font-size: 20px;
   font-weight: bold;
   margin-top: 20px;
-  margin-left: 30px;
-  color: #006400;
+  margin-left: 90px;
+  color: #3949ab;
 }
 .description-col-style {
-  border-left: 4px solid #006400;
+  border-left: 4px solid #3949ab;
   padding-left: 30px;
   padding-right: 30px;
-  margin-left: 50px;
+  margin-left: 90px;
   margin-top: 15px;
   line-height: 2;
   text-align: justify;
@@ -183,4 +199,17 @@ export default {
 .back-btn {
   margin: 30px auto 20px 30px;
 }
+.employer-logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60%;
+}
+.description-logo {
+  width: 80%;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 </style>

@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app :clipped-left="true" dark color="light-blue lighten-1">
+    <v-app-bar app :clipped-left="true" dark color="indigo darken-1">
       <router-link :to="'/'">
         <v-toolbar-title class="white--text">Rapjobs</v-toolbar-title>
       </router-link>
