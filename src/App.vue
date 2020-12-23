@@ -289,67 +289,6 @@ export default {
     this.$store.dispatch("readJobs");
     this.$store.dispatch("readEmployer");
     this.$store.dispatch("readRatings");
-    // ADD EMPLOYER
-    // firebase.database().ref('Employer')
-    // .push({
-    //   Adress: 'Sebastian street no. 20, Bucharest',
-    //   Industry: 'Customer Suppoert - Client Service',
-    //   Jobs: {
-    //     id: ''
-    //   },
-    //   Management: {
-    //     1: {
-    //       Name: 'Daniel Julien',
-    //       JobFunction: 'Executive Chairman of the Board and Group Chief Executive Officer'
-    //     }
-    //   },
-    //   Description: 'The company specializes in outsourced omnichannel customer experience management, also known as Business Process Outsourcing (BPO).',
-    //   Name: 'Teleperformance Greece',
-    //   Values: '',
-    //   Website: 'https://www.teleperformance.com'
-    // })
-    //ADD JOBS
-    // firebase.database().ref('Jobs')
-    //   .push({
-    //     Benefits: 'Prestigious clients',
-    //     Description: 'We are looking for an ambitious person who wants to become our colleague on the short or long term.',
-    //     EmployerID: '-LRY73GIBoogXFEebMec',
-    //     Name: 'Lightroom/Photoshop Editor',
-    //     Other: '',
-    //     RecruitmentProcess: 'Tehnical interview',
-    //     Requirements: {
-    //       Creativity: 'true',
-    //       AdobeSuite: 'true'
-    //     },
-    //     Salary: 100,
-    //     ScheduleStart: 12,
-    //     Domain: 'eCommerce',
-    //     JobType: 'full-time',
-    //     Location: 'Bucharest',
-    //     ScheduleEnd: 20,
-    //     Tag: 'Marketing',
-    //     Team: {
-
-    //     },
-    //     Trainings: 'Design Training',
-    //     Responsabilities: 'Create creative content, visually attractive and inovative.'
-    //   })
-
-    // // ADD RATINGS
-    // // firebase.database().ref('Ratings/' + '-LRY7R2ae7mn0MzH06S8')
-    // //   .push({
-    // //       UserID: 'aLfaMJxyqGOtLq0cWv6wlMZWbNk2',
-    // //       Rating: '1',
-    // //       Comment: 'They refused to hire me, stating that i was overqualified for the job.'
-    // //   })
-    // //
-    // ADD RATINGS
-    // firebase.database().ref('Ratings/' + '-LRY9BS9vMehcITbDrkR')
-    //   .push({
-    //       UserID: 'Npx44iPtvpM6TvDVIJsmmCtERxe2',
-    //       Rating: '1',
-    //       Comment: 'Salary not paid on time'
-    //   })
   },
 };
 </script>
