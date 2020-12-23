@@ -1,7 +1,23 @@
 <template>
   <v-container>
-    <v-layout align-center justify-space-around row>
-      <v-btn to="/search">Search</v-btn>
+    <v-layout align-center justify-space-between column>
+      <div class="title-wrapper">
+        <div class="title">
+          Find the career you deserve
+        </div>
+        <v-btn color="indigo darken-1 white--text" to="/search">Search</v-btn>
+      </div>
+      <div
+        class="logos"
+        v-if="employersDetails.length > 0"
+        style="margin-bottom: 10px;"
+      >
+        <img
+          v-for="employer in employersDetails"
+          :key="employer.Logo"
+          :src="employer.Logo"
+        />
+      </div>
     </v-layout>
   </v-container>
 </template>
@@ -11,8 +27,11 @@ import firebase from "firebase";
 export default {
   name: "app",
   data() {
-    return {};
+    return {
+      employersDetails: null,
+    };
   },
+
   computed: {},
   methods: {
     piechart1() {
@@ -69,7 +88,59 @@ export default {
       });
     },
   },
+  created() {
+    firebase
+      .database()
+      .ref("Employer")
+      .once(
+        "value",
+        (snap) => {
+          const myObj = snap.val();
+          this.employersDetails = [];
+          this.employerKeys = Object.keys(myObj);
+          this.employerKeys.forEach((employer) => {
+            this.employersDetails.push(myObj[employer]);
+          });
+        },
+        function(error) {
+          console.log("Error: " + error.message);
+        }
+      );
+  },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.container {
+  background: url("./../assets/hp.jpg");
+  height: 100%;
+  background-size: cover;
+  display: flex;
+  margin: 0px;
+  padding: 0px;
+  background-position: center;
+}
+.title {
+  color: white;
+  font-weight: normal;
+  margin: 20px;
+  margin-top: 250px;
+}
+img {
+  height: 50px;
+  width: auto;
+  margin: 5px;
+}
+.logos {
+  display: flex;
+  flex-flow: wrap;
+}
+.title-wrapper {
+  text-align: -webkit-center;
+}
+@media (min-width: 1264px) {
+  .container {
+    max-width: unset;
+  }
+}
+</style>
