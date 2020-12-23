@@ -376,4 +376,7 @@ html {
   margin-left: 15px;
   margin-bottom: 25px;
 }
+.v-application {
+      background-color: rgb(232 240 254 / 50%);
+}
 </style>

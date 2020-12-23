@@ -1,152 +1,87 @@
 <template>
   <v-container fluid grid-list-xl align-content-center>
     <v-layout row>
-      <div clas="filters">
-            <div v-if="searchType === 'employer'">
-      <v-flex xs4 align-content-center>
-        <v-card>
-          <v-card-text>
-            <!-- INPUT NAME -->
-            <v-layout row wrap>
-              <v-flex xs12 sm12>
-                <v-text-field
-                  :items="employerName"
-                  v-model="selectedName"
-                  label="Name"
-                  autocomplete
-                ></v-text-field>
-              </v-flex>
-            </v-layout>
-            <v-layout row wrap>
-              <v-flex xs12 sm12>
-                <v-text-field
-                  :items="employerAddress"
-                  v-model="selectedAddress"
-                  label="Address"
-                  autocomplete
-                ></v-text-field>
-              </v-flex>
-            </v-layout>
+      <v-flex xs4>
+        <div class="filters">
+          <div v-if="searchType === 'employer'">
+            <v-flex xs12 sm12>
+              <v-text-field
+                :items="employerName"
+                v-model="selectedName"
+                label="Name"
+                autocomplete
+              ></v-text-field>
+            </v-flex>
+            <v-flex xs12 sm12>
+              <v-text-field
+                :items="employerAddress"
+                v-model="selectedAddress"
+                label="Address"
+                autocomplete
+              ></v-text-field>
+            </v-flex>
             <v-autocomplete
               label="Industry"
               :items="employerIndustry"
               v-model="industry"
             >
             </v-autocomplete>
-            <!-- SELECT SORT BY RATING -->
-            <!-- <v-layout row wrap>
-              <v-flex xs12 sm12>
-                <v-select
-                  :items="itemsSort"
-                  label="Sorteaza dupa rating"
-                  v-model="selectedSort"
-                >
-                </v-select>
-              </v-flex>
-            </v-layout> -->
-            <!-- SELECT FACILITIES -->
-            <!-- <v-layout row wrap>
-              <v-flex xs12 sm12>
-                <v-select
-                  :items="facilities"
-                  label="Facilitati"
-                  v-model="selectedFacilities"
-                  multiple>
-                </v-select>
-              </v-flex>
-            </v-layout> -->
-            <!-- SELECT RATINGS -->
-            <!-- <v-layout row wrap>
-              <v-flex xs12 sm12>
-                <v-select
-                  :items="ratings"
-                  item-text="text"
-                  item-value="value"
-                  label="Rating"
-                  v-model="selectedRatings"
-                  single-line
-                  multiple>
-                </v-select>
-              </v-flex>
-            </v-layout> -->
-          </v-card-text>
-        </v-card>
+          </div>
+          <div v-if="searchType === 'jobs'">
+            <v-flex xs12 sm12>
+              <v-text-field
+                :items="jobName"
+                v-model="selectedName"
+                label="Nume"
+                autocomplete
+              ></v-text-field>
+            </v-flex>
+            <v-flex xs12 sm12>
+              <v-autocomplete
+                :items="jobLocation"
+                label="Locatie"
+                v-model="selectedLocation"
+              >
+              </v-autocomplete>
+            </v-flex>
+            <v-flex xs12 sm12>
+              <v-autocomplete
+                :items="jobType"
+                label="Locatie"
+                v-model="selectedType"
+              >
+              </v-autocomplete>
+            </v-flex>
+            <v-flex xs12 sm12>
+              <v-autocomplete
+                :items="jobDomain"
+                label="Domain"
+                v-model="selectedDomain"
+              >
+              </v-autocomplete>
+            </v-flex>
+            <v-flex xs12 sm12>
+              <v-select
+                :items="Benefits"
+                label="Benefits"
+                v-model="selectedBenefits"
+                multiple
+              >
+              </v-select>
+            </v-flex>
+            <v-flex xs12 sm12>
+              <v-select
+                :items="Requirements"
+                label="Requirements"
+                v-model="selectedRequirements"
+                multiple
+              >
+              </v-select>
+            </v-flex>
+          </div>
+        </div>
       </v-flex>
-    </div>
-    <div v-if="searchType === 'jobs'">
-      <v-flex xs4 align-content-center>
-        <v-card>
-          <v-card-text>
-            <!-- INPUT NAME -->
-            <v-layout row wrap>
-              <v-flex xs12 sm12>
-                <v-text-field
-                  :items="jobName"
-                  v-model="selectedName"
-                  label="Nume"
-                  autocomplete
-                ></v-text-field>
-              </v-flex>
-            </v-layout>
-            <!-- SELECT LOCATION -->
-            <v-layout row wrap>
-              <v-flex xs12 sm12>
-                <v-autocomplete
-                  :items="jobLocation"
-                  label="Locatie"
-                  v-model="selectedLocation"
-                >
-                </v-autocomplete>
-              </v-flex>
-            </v-layout>
-            <v-layout row wrap>
-              <v-flex xs12 sm12>
-                <v-autocomplete
-                  :items="jobType"
-                  label="Locatie"
-                  v-model="selectedType"
-                >
-                </v-autocomplete>
-              </v-flex>
-            </v-layout>
-            <v-layout row wrap>
-              <v-flex xs12 sm12>
-                <v-autocomplete
-                  :items="jobDomain"
-                  label="Domain"
-                  v-model="selectedDomain"
-                >
-                </v-autocomplete>
-              </v-flex>
-            </v-layout>
-            <v-layout row wrap>
-              <v-flex xs12 sm12>
-                <v-select
-                  :items="Benefits"
-                  label="Benefits"
-                  v-model="selectedBenefits"
-                  multiple
-                >
-                </v-select>
-              </v-flex>
-            </v-layout>
-            <v-layout row wrap>
-              <v-flex xs12 sm12>
-                <v-select
-                  :items="Requirements"
-                  label="Requirements"
-                  v-model="selectedRequirements"
-                  multiple
-                >
-                </v-select>
-              </v-flex>
-            </v-layout>
-          </v-card-text>
-        </v-card>
-      </v-flex>
-    </div>
-      </div>
-      <v-flex xs8>
+      <v-flex xs8 class="cards-wrapper">
         <CardResult
           :item="result"
           :searchType="searchType"
@@ -361,3 +296,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+.cards-wrapper {
+  display: flex;
+  flex-flow: wrap;
+}
+</style>
