@@ -8,88 +8,88 @@
             <v-tab @click="searchType = 'employer'">
               Employers
             </v-tab>
-            <v-tab  @click="searchType = 'jobs'">
+            <v-tab @click="searchType = 'jobs'">
               Jobs
             </v-tab>
           </v-tabs>
           <v-tabs-items v-model="tab">
             <v-tab-item>
-                <v-flex xs12 sm12>
-                  <v-text-field
-                    :items="employerName"
-                    v-model="selectedName"
-                    label="Name"
-                    autocomplete
-                  ></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm12>
-                  <v-text-field
-                    :items="employerAddress"
-                    v-model="selectedAddress"
-                    label="Address"
-                    autocomplete
-                  ></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm12>
+              <v-flex xs12 sm12>
+                <v-text-field
+                  :items="employerName"
+                  v-model="selectedName"
+                  label="Name"
+                  autocomplete
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm12>
+                <v-text-field
+                  :items="employerAddress"
+                  v-model="selectedAddress"
+                  label="Address"
+                  autocomplete
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm12>
                 <v-autocomplete
                   label="Industry"
                   :items="employerIndustry"
                   v-model="industry"
                 >
                 </v-autocomplete>
-                </v-flex>
+              </v-flex>
             </v-tab-item>
             <v-tab-item>
-                <v-flex xs12 sm12>
-                  <v-text-field
-                    :items="jobName"
-                    v-model="selectedName"
-                    label="Nume"
-                    autocomplete
-                  ></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm12>
-                  <v-autocomplete
-                    :items="jobLocation"
-                    label="Locatie"
-                    v-model="selectedLocation"
-                  >
-                  </v-autocomplete>
-                </v-flex>
-                <v-flex xs12 sm12>
-                  <v-autocomplete
-                    :items="jobType"
-                    label="Locatie"
-                    v-model="selectedType"
-                  >
-                  </v-autocomplete>
-                </v-flex>
-                <v-flex xs12 sm12>
-                  <v-autocomplete
-                    :items="jobDomain"
-                    label="Domain"
-                    v-model="selectedDomain"
-                  >
-                  </v-autocomplete>
-                </v-flex>
-                <v-flex xs12 sm12>
-                  <v-select
-                    :items="Benefits"
-                    label="Benefits"
-                    v-model="selectedBenefits"
-                    multiple
-                  >
-                  </v-select>
-                </v-flex>
-                <v-flex xs12 sm12>
-                  <v-select
-                    :items="Requirements"
-                    label="Requirements"
-                    v-model="selectedRequirements"
-                    multiple
-                  >
-                  </v-select>
-                </v-flex>
+              <v-flex xs12 sm12>
+                <v-text-field
+                  :items="jobName"
+                  v-model="selectedName"
+                  label="Nume"
+                  autocomplete
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm12>
+                <v-autocomplete
+                  :items="jobLocation"
+                  label="Locatie"
+                  v-model="selectedLocation"
+                >
+                </v-autocomplete>
+              </v-flex>
+              <v-flex xs12 sm12>
+                <v-autocomplete
+                  :items="jobType"
+                  label="Locatie"
+                  v-model="selectedType"
+                >
+                </v-autocomplete>
+              </v-flex>
+              <v-flex xs12 sm12>
+                <v-autocomplete
+                  :items="jobDomain"
+                  label="Domain"
+                  v-model="selectedDomain"
+                >
+                </v-autocomplete>
+              </v-flex>
+              <v-flex xs12 sm12>
+                <v-select
+                  :items="Benefits"
+                  label="Benefits"
+                  v-model="selectedBenefits"
+                  multiple
+                >
+                </v-select>
+              </v-flex>
+              <v-flex xs12 sm12>
+                <v-select
+                  :items="Requirements"
+                  label="Requirements"
+                  v-model="selectedRequirements"
+                  multiple
+                >
+                </v-select>
+              </v-flex>
             </v-tab-item>
           </v-tabs-items>
         </div>
@@ -158,12 +158,9 @@ export default {
       var filteredData;
       if (this.searchType === "employer") {
         filteredData = this.employers.filter((employer) => {
-          // let matchingFacilities = true
           let matchingName = true;
           let matchingAddress = true;
           let matchingIndustry = true;
-          // let matchingRatings = true
-          // filter name
           matchingName = this.selectedName
             ? employer.Name.toLowerCase().includes(
                 this.selectedName.toLowerCase()
@@ -179,16 +176,6 @@ export default {
                 this.industry.toLowerCase()
               ) || this.industry === "All industries"
             : true;
-          // filter facilities
-          // if (this.selectedFacilities) {
-          //   if (employer.Facilities) {
-          //     matchingFacilities = this.selectedFacilities ? employer.Facilities.filter(elem => {
-          //       return this.selectedFacilities.indexOf(elem) > -1
-          //     }).length === this.selectedFacilities.length : true
-          //   } else {
-          //     matchingFacilities = false
-          //   }
-          // }
           return matchingName & matchingAddress & matchingIndustry;
         });
       } else if (this.searchType === "jobs") {
@@ -199,17 +186,13 @@ export default {
           let matchingDomain = true;
           let matchingType = true;
           let matchingRequirements = true;
-          // let matchingRatings = true
-          // filter location
           matchingLocation = this.selectedLocation
             ? this.selectedLocation === job.Location ||
               this.selectedLocation === "All locations"
             : true;
-          // filter name
           matchingName = this.selectedName
             ? job.Name.toLowerCase().includes(this.selectedName.toLowerCase())
             : true;
-          // filter Benefits
           if (this.selectedBenefits) {
             if (job.Benefits) {
               var Benefitscompany = job.Benefits.split(",");
