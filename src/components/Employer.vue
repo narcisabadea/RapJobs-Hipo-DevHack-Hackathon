@@ -36,7 +36,6 @@
       </v-row>
 
       <v-row>
-     
         <v-col cols="12" sm="9">
           <div class="description-style">Values</div>
           <div class="description-col-style">
@@ -45,7 +44,7 @@
             </div>
           </div>
         </v-col>
-           <v-col cols="12" sm="3">
+        <v-col cols="12" sm="3">
           <img src="../assets/values.png" class="description-logo" />
         </v-col>
       </v-row>
@@ -54,45 +53,42 @@
         <v-col cols="12" sm="9">
           <div class="description-style">Management</div>
           <div class="description-col-style">
-              <v-list dense>
-                <v-list-item
-                  v-for="(item, index) in detailsEmployer.Management"
-                  :key="index"
-                >
-                  <v-list-item-content v-if="item != null">
-                    {{ item.Name }}, {{ item.JobFunction }}
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
-            </div>
+            <v-list dense>
+              <v-list-item
+                v-for="(item, index) in detailsEmployer.Management"
+                :key="index"
+              >
+                <v-list-item-content v-if="item != null">
+                  {{ item.Name }}, {{ item.JobFunction }}
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </div>
         </v-col>
         <v-col cols="12" sm="3">
           <img src="../assets/team.png" class="description-logo" />
         </v-col>
       </v-row>
       <v-row>
-        
         <v-col cols="12" sm="9">
           <div class="description-style">Jobs</div>
           <div class="description-col-style">
-             <v-list dense>
-                <v-list-item
-                  v-for="(item, index) in detailsEmployer.Jobs"
-                  :key="index"
-                >
-                  <v-list-item-content v-if="item != null">
-                    {{ item }}
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
-
+            <v-list dense>
+              <v-list-item
+                v-for="(item, index) in jobs"
+                :key="index"
+              >
+                <v-list-item-content v-if="item != null">
+                  {{ item.Name }}
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
           </div>
         </v-col>
         <v-col cols="12" sm="3">
           <img src="../assets/jobs.png" class="description-logo" />
         </v-col>
       </v-row>
-
       <v-btn color="indigo darken-1 white--text" router to="/" class="back-btn">
         Back
       </v-btn>
@@ -108,7 +104,6 @@ export default {
     return {
       id: this.$route.params.id,
       idFaculties: [],
-      detailsEmployer: [],
     };
   },
   computed: {
@@ -197,7 +192,7 @@ export default {
   text-align: justify;
 }
 .back-btn {
-  margin: 30px auto 20px 30px;
+  margin: 30px auto 20px 70px;
 }
 .employer-logo {
   display: block;
@@ -211,5 +206,4 @@ export default {
   top: 50%;
   transform: translateY(-50%);
 }
-
 </style>
