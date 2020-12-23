@@ -11,8 +11,8 @@
           <v-btn
         text
         rounded
-        @click="dialogTest = true"
         v-if="ifTest === false && userIsAuthenticated === true"
+        to="/Test"
       >
        <v-icon rounded left>mdi-file</v-icon> 
         Take the test
@@ -150,35 +150,6 @@
       </v-card>
     </v-dialog>
 
-    <v-dialog rounded v-model="dialogTest" max-width="50%" persistent>
-      <v-layout align-center justify-center>
-        <v-flex>
-          <v-card class="elevation-12">
-            <v-toolbar dark color="primary">
-              <v-toolbar-title>Personality Test</v-toolbar-title> </v-toolbar
-            ><br />
-            <v-card-text>
-              <v-alert :value="true" type="success">
-                <h3>
-                  Relax, get in a quiet place, and read the entire text before
-                  making any markings.
-                </h3>
-              </v-alert>
-            </v-card-text>
-            <v-btn color="primary" type="submit" @click="dialogTest = false"
-              >Exit</v-btn
-            >
-            <v-btn
-              color="primary"
-              to="/Test"
-              type="submit"
-              @click="dialogTest = false"
-              >Next</v-btn
-            >
-          </v-card>
-        </v-flex>
-      </v-layout>
-    </v-dialog>
   </v-app>
 </template>
 
