@@ -7,7 +7,7 @@ Job Searching application created using HTML, Vue.js, Vuex, Vuetify and Firebase
 The application is also live [HERE](https://devhacks2018.web.app).
 
 This project was created using [Vue.js CLI](https://vuejs.org/) version 2.6.11 with [Vuetify](https://vuetifyjs.com/en/), [Vuex](https://vuex.vuejs.org/).
-Data is saved through [Firebase](https://firebase.google.com/)
+Data is saved through [Firebase](https://firebase.google.com/).
 
 To run the project on your machine use npm run serve for a dev server. Navigate to http://localhost:8080/.
 
